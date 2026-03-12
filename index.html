@@ -65,10 +65,10 @@ const allQuestions = [
     "explanation": "REST APIはHTTPメソッドを利用してCRUD操作を実行します。POSTは新しいリソースの作成(Create)、GETは情報の取得(Read)、PUTはリソースの完全な置換または作成(Update)、PATCHはリソースの部分的な更新(Update)、DELETEはリソースの削除(Delete)に使用されます。",
     "dndTargets": [
       "removes a resource",
-      "creates or replaces a previously modified resource using information in the request body",
-      "retrieves a list of a resource's URIs",
       "updates a resource using instructions included in the request body",
-      "creates a resource and returns its URI in the response header"
+      "retrieves a list of a resource's URIs",
+      "creates a resource and returns its URI in the response header",
+      "creates or replaces a previously modified resource using information in the request body"
     ],
     "dndPairs": {
       "DELETE": "removes a resource",
@@ -119,13 +119,13 @@ const allQuestions = [
     "answer": "Collapsed Core:\n- single device handles the core and the distribution layer\n- more cost-effective than other options\n- most appropriate for small network designs\n\nThree-Tier:\n- enhances network availability\n- separate devices handle the core and the distribution layer",
     "explanation": "コラプストコア（Collapsed Core / 2層）アーキテクチャは、コア層とディストリビューション層の機能を1つのスイッチ（またはスイッチペア）に統合します。これにより機器数を減らせるためコスト効率が高く、小規模ネットワークに適しています。一方、スリーティア（Three-Tier / 3層）アーキテクチャは、アクセス、ディストリビューション、コアの各層を分離した物理デバイスで構成し、大規模な拡張性と高度なネットワーク可用性（冗長性）を提供します。",
     "dndTargets": [
-      "",
       "single device handles the core and the distribution layer",
-      "separate devices handle the core and the distribution layer",
       "enhances network availability",
-      "most appropriate for small network designs",
+      "",
       "Tier:",
-      "more cost-effective than other options"
+      "more cost-effective than other options",
+      "separate devices handle the core and the distribution layer",
+      "most appropriate for small network designs"
     ],
     "dndPairs": {
       "Collapsed Core": "",
@@ -147,15 +147,15 @@ const allQuestions = [
     "answer": "interface Ethernet0\n A -> ip address 172.16.1.1 255.255.255.0\n B -> ip nat inside\ninterface Serial 0\n C -> ip address 45.83.2.214 255.255.255.240\n D -> ip nat outside\n(Global config)\n E -> ip nat inside source static tcp 172.16.1.2 80 45.83.2.214 80 extendable\n F -> ip nat inside source list 1 interface s0 overload",
     "explanation": "NATの設定において、ローカルLAN側（Webサーバー側）のインターフェースEthernet0には内部IPアドレスを設定し、`ip nat inside`で内部ネットワークとして指定します。インターネット側（WAN側）のインターフェースSerial 0にはパブリックIPアドレスを設定し、`ip nat outside`で外部ネットワークとして指定します。その後、グローバルコンフィギュレーションモードでポートフォワーディングを伴うスタティックNAT（コマンドE）と、インターネットアクセスのためのPAT（オーバーロード）（コマンドF）を設定します。",
     "dndTargets": [
-      "(Global config)",
-      "> ip nat inside",
-      "interface Ethernet0",
-      "interface Serial 0",
-      "> ip address 172.16.1.1 255.255.255.0",
-      "> ip nat inside source static tcp 172.16.1.2 80 45.83.2.214 80 extendable",
-      "> ip nat inside source list 1 interface s0 overload",
       "> ip nat outside",
-      "> ip address 45.83.2.214 255.255.255.240"
+      "interface Ethernet0",
+      "> ip address 172.16.1.1 255.255.255.0",
+      "> ip nat inside",
+      "> ip nat inside source list 1 interface s0 overload",
+      "> ip nat inside source static tcp 172.16.1.2 80 45.83.2.214 80 extendable",
+      "interface Serial 0",
+      "> ip address 45.83.2.214 255.255.255.240",
+      "(Global config)"
     ],
     "dndPairs": {
       "A": "> ip address 172.16.1.1 255.255.255.0",
@@ -305,10 +305,10 @@ const allQuestions = [
     "answer": "configure a VLAN access control list -> 802.1q double tagging\nconfigure the dynamic ARP inspection feature -> ARP spoofing\nconfigure the root guard feature -> unwanted superior BPDUs\nconfigure the BPDU guard feature -> unwanted BPDUs on PortFast-enabled interfaces",
     "explanation": "VLANアクセスコントロールリスト(VACL)はトラフィックを検査し、VLANホッピング（ダブルタギング）攻撃などの不正なトラフィックをドロップできます。ダイナミックARPインスペクション(DAI)は、無効なIP-MACバインディングを持つARPパケットを破棄することでARPスプーフィングを防ぎます。ルートガードは予期せぬ優位なBPDUを受信した際にポートをブロックし、スパニングツリーのトポロジ改ざんを防ぎます。BPDUガードは、エンドデバイスが接続されるPortFast有効ポートでBPDUを受信した場合にポートをエラーディセーブル状態にします。",
     "dndTargets": [
-      "> ARP spoofing",
-      "> unwanted superior BPDUs",
       "> unwanted BPDUs on PortFast-enabled interfaces",
-      "> 802.1q double tagging"
+      "> unwanted superior BPDUs",
+      "> 802.1q double tagging",
+      "> ARP spoofing"
     ],
     "dndPairs": {
       "configure a VLAN access control list": "> 802.1q double tagging",
@@ -359,11 +359,11 @@ const allQuestions = [
     "answer": "action:\n- BPDUs received are forwarded to the system module.\n- Frames received from the attached segment are processed.\n- Switched frames received from other ports are advanced.\n- The port in the forwarding state responds to network management messages.",
     "explanation": "スパニングツリープロトコル（STP）におけるポート状態の最終段階である「フォワーディング（Forwarding）状態」では、ポートは完全な機能を果たします。ユーザーデータのフレームを受信して処理（MACアドレスの学習など）し、他のポートからのフレームを転送（アドバンス）します。また、BPDUの送受信やSNMPなどのネットワーク管理メッセージへの応答も正常に行われます。",
     "dndTargets": [
-      "The port in the forwarding state responds to network management messages.",
-      "Switched frames received from other ports are advanced.",
       "",
-      "Frames received from the attached segment are processed.",
-      "BPDUs received are forwarded to the system module."
+      "BPDUs received are forwarded to the system module.",
+      "Switched frames received from other ports are advanced.",
+      "The port in the forwarding state responds to network management messages.",
+      "Frames received from the attached segment are processed."
     ],
     "dndPairs": {
       "action": "",
@@ -599,16 +599,16 @@ const allQuestions = [
     "answer": "Multicast:\n- confined to a single link\n- provides one-to-many communications\n\nLink-Local Address:\n- serves as the next-hop addresses\n- cannot be used as a source address\n(※注意: 公式解答画像では以下のようになっていますが技術的に不正確な部分があります。\nMulticast: confined to a single link, provides one-to-many communications\nLink-Local: serves as the next-hop addresses, cannot be used as a source address\n技術的にはLink-Localがconfined to a single linkであり、Multicastがcannot be used as a source addressです。しかしソース画像に準拠します)",
     "explanation": "公式の解答画像に基づいたマッピングです。IPv6のマルチキャストアドレス（ff00::/8）は、単一のパケットをグループ全体に送信する1対多の通信を提供します。リンクローカルアドレス（fe80::/10）は、ルーターを超えて転送されることはなく（単一リンクに限定）、ルーティングプロトコルなどでネクストホップアドレスとして機能します。（※ソース画像の配置には技術的矛盾が含まれている可能性がありますが、試験対策としてはこの関連付けを認識しておく必要があります）",
     "dndTargets": [
-      "",
-      "Localがconfined to a single linkであり、Multicastがcannot be used as a source addressです。しかしソース画像に準拠します)",
-      "confined to a single link",
-      "Local: serves as the next-hop addresses, cannot be used as a source address",
       "confined to a single link, provides one-to-many communications",
-      "provides one-to-many communications",
-      "公式解答画像では以下のようになっていますが技術的に不正確な部分があります。",
-      "Local Address:",
+      "Local: serves as the next-hop addresses, cannot be used as a source address",
+      "Localがconfined to a single linkであり、Multicastがcannot be used as a source addressです。しかしソース画像に準拠します)",
+      "",
       "serves as the next-hop addresses",
-      "cannot be used as a source address"
+      "cannot be used as a source address",
+      "公式解答画像では以下のようになっていますが技術的に不正確な部分があります。",
+      "confined to a single link",
+      "provides one-to-many communications",
+      "Local Address:"
     ],
     "dndPairs": {
       "Multicast": "confined to a single link, provides one-to-many communications",
@@ -715,10 +715,10 @@ const allQuestions = [
     "answer": "eBGP -> All protocols are up.\nEIGRP -> The static route and eBGP are down.\nStatic -> The static route and OSPF are down.\n(※注意: 複数の類似出題バリエーションが存在しますが、提供された公式解答画像に従ってマッピングを記述しています)",
     "explanation": "ルーターが同一の宛先プレフィックスに対する複数のルートを異なるプロトコルから学習した場合、アドミニストレーティブディスタンス（AD）が最も低い（信頼性が高い）ものをルーティングテーブルにインストールします。標準ADは Static=1, eBGP=20, EIGRP=90, OSPF=110, iBGP=200, RIP=120です。したがって、すべて起動していればStaticが選ばれ、Staticがダウンしていれば次にADが低いeBGPが選ばれるのが論理的ですが、試験の解答例にはこのADの原則と矛盾するマッピングが含まれることがあるため、公式の解答パターンを暗記することが重要です。",
     "dndTargets": [
-      "> The static route and eBGP are down.",
       "> All protocols are up.",
-      "複数の類似出題バリエーションが存在しますが、提供された公式解答画像に従ってマッピングを記述しています)",
-      "> The static route and OSPF are down."
+      "> The static route and OSPF are down.",
+      "> The static route and eBGP are down.",
+      "複数の類似出題バリエーションが存在しますが、提供された公式解答画像に従ってマッピングを記述しています)"
     ],
     "dndPairs": {
       "eBGP": "> All protocols are up.",
@@ -795,10 +795,10 @@ const allQuestions = [
     "answer": "Global Unicast -> 2001:db8:600d:cafe::123\nLink-Local Unicast -> fe80::a00:27ff:feeb:89aa\nMulticast -> ff05::1:3\nUnique Local -> fcba:926a:e8e:7a25:b1:c6d2:1a76:8fdc",
     "explanation": "IPv6アドレスはプレフィックス（先頭のビットパターン）によって種類が識別されます。\n・2000::/3 (2001など) はインターネット上でルーティング可能なグローバルユニキャストアドレスです。\n・FE80::/10 は同一リンク上でのみ有効なリンクローカルアドレスです。\n・FF00::/8 はマルチキャストアドレスです。\n・FC00::/7 (FCやFDで始まる) は組織内でのみ一意なユニークローカルアドレス（ULA）であり、IPv4のプライベートアドレスに相当します。",
     "dndTargets": [
-      "> fcba:926a:e8e:7a25:b1:c6d2:1a76:8fdc",
-      "Local Unicast -> fe80::a00:27ff:feeb:89aa",
+      "> ff05::1:3",
       "> 2001:db8:600d:cafe::123",
-      "> ff05::1:3"
+      "Local Unicast -> fe80::a00:27ff:feeb:89aa",
+      "> fcba:926a:e8e:7a25:b1:c6d2:1a76:8fdc"
     ],
     "dndPairs": {
       "Global Unicast": "> 2001:db8:600d:cafe::123",
@@ -1102,10 +1102,10 @@ const allQuestions = [
     "answer": "action:\n- BPDUs received are forwarded to the system module.\n- BPDUs received from the system module are processed and transmitted.\n- Frames received from the attached segment are processed.\n- The port in the forwarding state responds to network management messages.",
     "explanation": "スパニングツリーにおいて、ポートが完全にアクティブな「フォワーディング状態」になると、通常のデータトラフィックの処理と転送（フォワーディング）が行われます。同時に、ループを監視・維持するためのBPDUのシステムモジュールへの転送と送信処理、およびポートに対するSNMPなどのネットワーク管理要求への応答機能もアクティブになります。",
     "dndTargets": [
-      "BPDUs received from the system module are processed and transmitted.",
       "BPDUs received are forwarded to the system module.",
-      "The port in the forwarding state responds to network management messages.",
       "Frames received from the attached segment are processed.",
+      "The port in the forwarding state responds to network management messages.",
+      "BPDUs received from the system module are processed and transmitted.",
       ""
     ],
     "dndPairs": {
@@ -1140,16 +1140,16 @@ const allQuestions = [
     "answer": "Global Unicast Address:\n- is publicly routable in the same way as IPv4 addresses\n- serves as the next-hop addresses (※一部の回答データではこちらにマッピングされることがあるが通常Link-Localの役割)\n\n※正しい技術的解釈と一般解答例:\nGlobal Unicast Address:\n- is publicly routable in the same way as IPv4 addresses\nLink-Local Address:\n- required on all IPv6 devices\n- serves as the next-hop addresses\n- provides for one-to-one communication",
     "explanation": "グローバルユニキャストアドレス（GUA）は、IPv4のパブリックIPアドレスと同様にインターネット上でグローバルに一意であり、ルーティング可能です。リンクローカルアドレスは、すべてのIPv6インターフェースで必須であり、同一リンク（サブネット）内でのみ有効です。OSPFv3などのルーティングプロトコルは、ルーティングテーブルのネクストホップアドレスとしてリンクローカルアドレスを利用します。",
     "dndTargets": [
-      "is publicly routable in the same way as IPv4 addresses",
-      "provides for one-to-one communication",
       "",
+      "is publicly routable in the same way as IPv4 addresses",
+      "serves as the next-hop addresses",
+      "",
+      "is publicly routable in the same way as IPv4 addresses",
       "",
       "required on all IPv6 devices",
-      "serves as the next-hop addresses",
-      "Local Address:",
       "serves as the next-hop addresses (※一部の回答データではこちらにマッピングされることがあるが通常Link-Localの役割)",
-      "",
-      "is publicly routable in the same way as IPv4 addresses"
+      "provides for one-to-one communication",
+      "Local Address:"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -1198,11 +1198,11 @@ const allQuestions = [
     "answer": "TCP:\n- requires the client and the server to establish a connection before sending the packet\n- supports reliable data transmission\nUDP:\n- transmitted based on data contained in the packet without the need for a data channel\n- provides best-effort service",
     "explanation": "TCP（Transmission Control Protocol）はコネクション指向のプロトコルであり、3ウェイハンドシェイクで接続を確立し、シーケンス番号や確認応答を使用してデータの確実な到達（信頼性）を保証します。UDP（User Datagram Protocol）はコネクションレスであり、接続の確立なしにデータを送り出すため高速ですが、パケットの到達保証や順序制御を行わない「ベストエフォート」のサービスを提供します。",
     "dndTargets": [
+      "",
       "transmitted based on data contained in the packet without the need for a data channel",
-      "provides best-effort service",
-      "",
-      "",
       "requires the client and the server to establish a connection before sending the packet",
+      "",
+      "provides best-effort service",
       "supports reliable data transmission"
     ],
     "dndPairs": {
@@ -1385,12 +1385,12 @@ const allQuestions = [
     "answer": "Global Unicast Address:\n- enables aggregation of routing prefixes\n- provides for one-to-one communication\nMulticast:\n- provides one-to-many communications\n- sends packets to a group address rather than a single address",
     "explanation": "グローバルユニキャストアドレスはインターネット上で一意であり、効率的なルーティングのためのプレフィックス集約をサポートし、特定の単一ノードとの1対1の通信に使用されます。一方、マルチキャストアドレスは特定のグループに属する複数のノードへの1対多の通信に使用され、パケットは単一のアドレスではなくグループアドレス宛に送信されます。",
     "dndTargets": [
-      "sends packets to a group address rather than a single address",
       "provides for one-to-one communication",
       "enables aggregation of routing prefixes",
       "",
-      "provides one-to-many communications",
-      ""
+      "sends packets to a group address rather than a single address",
+      "",
+      "provides one-to-many communications"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -1515,10 +1515,10 @@ const allQuestions = [
       "",
       "uses TCP",
       "encrypts only the password when it sends an access request",
-      "separates all three AAA operations",
       "uses UDP",
+      "",
       "combines authentication and authorization",
-      ""
+      "separates all three AAA operations"
     ],
     "dndPairs": {
       "RADIUS": "",
@@ -1637,10 +1637,10 @@ const allQuestions = [
     "explanation": "IPv6マルチキャストアドレス（ff00::/8）は、単一のパケットを特定のグループの複数のノードに配信するためのものであり、パケットの送信元アドレスとして使用することはできません。リンクローカルアドレス（fe80::/10）は、IPv6プロトコルが動作するすべてのインターフェースで必須であり、自動的に構成され、ルーターを超えない単一のリンク内での通信に使用されます。",
     "dndTargets": [
       "cannot be used as a source address",
-      "",
-      "sends packets to a group address rather than a single address",
-      "required on all IPv6 devices",
       "Local Address:",
+      "required on all IPv6 devices",
+      "sends packets to a group address rather than a single address",
+      "",
       "confined to a single link"
     ],
     "dndPairs": {
@@ -1773,8 +1773,8 @@ const allQuestions = [
     "explanation": "NO.047の解説を参照してください。2000::/3はグローバルユニキャスト、FE80::/10はリンクローカル、FF00::/8はマルチキャスト、FC00::/7はユニークローカル（ULA）です。",
     "dndTargets": [
       "> ff05::1:3",
-      "Local Unicast -> fe80::a00:27ff:feeb:89aa",
       "> 2001:db8:600d:cafe::123",
+      "Local Unicast -> fe80::a00:27ff:feeb:89aa",
       "> fcba:926a:e8e:7a25:b1:c6d2:1a76:8fdc"
     ],
     "dndPairs": {
@@ -1872,10 +1872,10 @@ const allQuestions = [
     "answer": "Access -> connect end users\nCore -> fast switching\nSpine-leaf -> redundant architectures within data centers\nDistribution -> aggregate traffic flows from customers",
     "explanation": "3層アーキテクチャにおいて、アクセス層（Access）はPCなどのエンドユーザーデバイスをネットワークに接続します。ディストリビューション層（Distribution）はアクセス層からのトラフィックを集約（aggregate）し、ポリシーを適用します。コア層（Core）は純粋にパケットを高速転送（fast switching）するバックボーンです。スパインリーフ（Spine-leaf）アーキテクチャは、データセンター内で高帯域幅と予測可能な遅延を提供する冗長設計です。",
     "dndTargets": [
-      "> aggregate traffic flows from customers",
+      "leaf -> redundant architectures within data centers",
       "> connect end users",
-      "> fast switching",
-      "leaf -> redundant architectures within data centers"
+      "> aggregate traffic flows from customers",
+      "> fast switching"
     ],
     "dndPairs": {
       "Access": "> connect end users",
@@ -2130,9 +2130,9 @@ const allQuestions = [
     "explanation": "構成管理ツールのアプローチに関する対応です。「Push」モデル（Ansibleなど）は、中央サーバーが能動的にノードへ設定を送信します。「Pull」モデル（Puppet、Chefなど）は、ノード側にインストールされたデーモンが中央サーバーに変更をポーリングして取得します。「Agentless」は管理対象に専用ソフトを入れないため管理が容易ですが、大規模環境ではSSH接続のオーバーヘッドでスケーラビリティに課題が出ることがあります。（※agentに関する説明は不適切なDumpsデータですが、形式通りにマッピングします）",
     "dndTargets": [
       "> easy-to-manage deployment option that may lack scalability",
-      "> model in which the central server sends updates to nodes on an as-needed basis",
       "> device hardware that runs without embedded management features (※公式画像に準拠しますが、不正確な表現が含まれます)",
-      "> daemon that determines when the central authority has updates available"
+      "> daemon that determines when the central authority has updates available",
+      "> model in which the central server sends updates to nodes on an as-needed basis"
     ],
     "dndPairs": {
       "pull": "> daemon that determines when the central authority has updates available",
@@ -2534,13 +2534,13 @@ const allQuestions = [
     "answer": "Cisco DNA Center:\n- overlay and underlay configuration\n- routed access deployment\n- STP deployment\n\nTraditional:\n- VLAN and HSRP configuration\n- VXLAN and LISP configuration (※不適切だが画像に基づく)\n- configuration via console",
     "explanation": "※試験問題の公式解答画像に基づくマッピングですが、技術的に明らかな誤りが含まれています。本来、VXLANやLISPはSD-Accessを構成する要素であり、Cisco DNA Centerによって自動的にプロビジョニングされる「オーバーレイ技術」です。しかし、ソースの解答画像ではTraditional側に分類されています。試験本番ではこの不合理なマッピングパターンを暗記しておく必要があります。",
     "dndTargets": [
-      "",
-      "",
       "overlay and underlay configuration",
-      "configuration via console",
-      "VLAN and HSRP configuration",
-      "routed access deployment",
+      "",
+      "",
       "STP deployment",
+      "routed access deployment",
+      "VLAN and HSRP configuration",
+      "configuration via console",
       "VXLAN and LISP configuration (※不適切だが画像に基づく)"
     ],
     "dndPairs": {
@@ -2561,9 +2561,9 @@ const allQuestions = [
     "answer": "Global Unicast -> 2000:6a4f:74f8:f7b6:cb1a:934c:36ee:1\nLink-Local Unicast -> fe80:1e60:1f59:01b8:ece8:e962:4364:7\nUnique Local -> fc00:302d:1b26:dbe7:ce8b:17ae:be9f:3\nMulticast -> ff00:45fc:709a:d439:62cb:cdad:0a15:12",
     "explanation": "NO.047やNO.109の再出題です。プレフィックスで識別します。\n2000::/3 (2000～3FFF) = Global Unicast Address\nFE80::/10 (FE80～FEBF) = Link-Local Address\nFC00::/7 (FC00～FDFF) = Unique Local Address (ULA)\nFF00::/8 (FF00～FFFF) = Multicast Address",
     "dndTargets": [
+      "> ff00:45fc:709a:d439:62cb:cdad:0a15:12",
       "Local Unicast -> fe80:1e60:1f59:01b8:ece8:e962:4364:7",
       "> 2000:6a4f:74f8:f7b6:cb1a:934c:36ee:1",
-      "> ff00:45fc:709a:d439:62cb:cdad:0a15:12",
       "> fc00:302d:1b26:dbe7:ce8b:17ae:be9f:3"
     ],
     "dndPairs": {
@@ -2615,11 +2615,11 @@ const allQuestions = [
     "answer": "name resolver -> in response to client requests, queries a name server for IP address information\ncache -> local database of address mappings that improves name-resolution performance\nno ip domain-lookup -> disables DNS services on a Cisco device\nDNS -> service that maps hostnames to IP addresses\ndomain -> component of a URL that indicates the location or organization type",
     "explanation": "・DNS：ホスト名（FQDN）をIPアドレスに変換するシステム・サービス全体を指します。\n・name resolver：クライアント側のスタブ機能で、アプリケーションに代わってDNSサーバーへ問い合わせを行います。\n・cache：過去のDNS応答を一時的に保存し、次回以降の問い合わせ速度を向上させるローカルデータベースです。\n・no ip domain-lookup：Cisco IOSで、誤ったコマンド入力時に発生する不要なDNSブロードキャスト検索を無効にするコマンドです。",
     "dndTargets": [
-      "> component of a URL that indicates the location or organization type",
+      "> service that maps hostnames to IP addresses",
+      "lookup -> disables DNS services on a Cisco device",
       "> in response to client requests, queries a name server for IP address information",
       "> local database of address mappings that improves name-resolution performance",
-      "> service that maps hostnames to IP addresses",
-      "lookup -> disables DNS services on a Cisco device"
+      "> component of a URL that indicates the location or organization type"
     ],
     "dndPairs": {
       "name resolver": "> in response to client requests, queries a name server for IP address information",
@@ -2923,12 +2923,12 @@ const allQuestions = [
     "answer": "FIFO -> uses store-and-forward queueing\nPQ -> places packets into one of four priority-based queues\nCQ -> services a specified number of bytes in one queue before continuing to the next queue\nWFQ -> provides minimum guaranteed bandwidth to one or more flows\nCBWFQ -> provides guaranteed bandwidth to a specified class of traffic\n(※公式解答画像におけるマッピングに準拠)",
     "explanation": "QoSのキューイングアルゴリズムの特徴です。\n・FIFO (First-In First-Out): 単純な先入れ先出しのキューイングです。\n・PQ (Priority Queuing): トラフィックをHigh, Medium, Normal, Lowの4つの絶対的な優先度キューに分類します。\n・CQ (Custom Queuing): 各キューから指定されたバイト数を順番にサービスし、帯域を配分します。\n・WFQ (Weighted Fair Queuing): 低帯域のフローを優先しつつ、すべてのフローに公平な帯域幅を動的に割り当てます。\n・CBWFQ (Class-Based WFQ): 管理者が定義したトラフィッククラスごとに最低保証帯域幅を割り当てます。",
     "dndTargets": [
+      "(※公式解答画像におけるマッピングに準拠)",
       "> uses store-and-forward queueing",
       "> places packets into one of four priority-based queues",
-      "(※公式解答画像におけるマッピングに準拠)",
       "> provides minimum guaranteed bandwidth to one or more flows",
-      "> provides guaranteed bandwidth to a specified class of traffic",
-      "> services a specified number of bytes in one queue before continuing to the next queue"
+      "> services a specified number of bytes in one queue before continuing to the next queue",
+      "> provides guaranteed bandwidth to a specified class of traffic"
     ],
     "dndPairs": {
       "FIFO": "> uses store-and-forward queueing",
@@ -2951,11 +2951,11 @@ const allQuestions = [
     "answer": "wireless LAN controller -> device that manages access points\naccess point -> device that provides Wi-Fi devices with a connection to a wired network\nservice port -> used for out of band management of a WLC\nvirtual interface -> used for guest authentication (Web認証やモビリティなどに使用される仮想IP)\ndynamic interface -> applied to the WLAN for wireless client communication (SSID/VLANマッピングに使用)",
     "explanation": "Cisco WLCアーキテクチャにおける主要な要素の定義です。\nWLCは複数のアクセスポイントを集中管理します。\nアクセスポイント(AP)は無線空間と有線ネットワークを物理的に橋渡しします。\nサービスポートは、データトラフィックとは分離された帯域外（OOB）管理用の物理ポートです。\n仮想（Virtual）インターフェースは、Web認証のリダイレクト、DHCPリレー、ローミング時のモビリティ管理などに使用される論理インターフェースです（IPは通常1.1.1.1等）。\n動的（Dynamic）インターフェースは、WLAN（SSID）と有線ネットワークの特定のVLANを関連付けるために作成される論理インターフェースです。",
     "dndTargets": [
+      "> device that provides Wi-Fi devices with a connection to a wired network",
+      "> used for guest authentication (Web認証やモビリティなどに使用される仮想IP)",
       "> applied to the WLAN for wireless client communication (SSID/VLANマッピングに使用)",
       "> used for out of band management of a WLC",
-      "> device that manages access points",
-      "> used for guest authentication (Web認証やモビリティなどに使用される仮想IP)",
-      "> device that provides Wi-Fi devices with a connection to a wired network"
+      "> device that manages access points"
     ],
     "dndPairs": {
       "wireless LAN controller": "> device that manages access points",
@@ -3315,12 +3315,12 @@ const allQuestions = [
     "answer": "255.255.254.0 -> 172.16.4.0 (※ /23)\n255.255.255.128 -> 172.16.2.128 (※ /25)\n255.255.255.224 -> 172.16.3.64 (※ /27)\n255.255.255.240 -> 172.16.3.128 (※ /28)\n255.255.255.248 -> 172.16.3.192 (※ /29)\n(展示のルーティングテーブルにおけるプレフィックス長からサブネットマスクを導き出します)",
     "explanation": "ルーティングテーブルのCIDR表記（プレフィックス長）をドット付き十進表記のサブネットマスクに変換する問題です。\n/23 = 255.255.254.0\n/25 = 255.255.255.128\n/27 = 255.255.255.224\n/28 = 255.255.255.240\n/29 = 255.255.255.248",
     "dndTargets": [
-      "> 172.16.3.128 (※ /28)",
-      "(展示のルーティングテーブルにおけるプレフィックス長からサブネットマスクを導き出します)",
-      "> 172.16.4.0 (※ /23)",
       "> 172.16.3.64 (※ /27)",
+      "> 172.16.4.0 (※ /23)",
+      "> 172.16.2.128 (※ /25)",
       "> 172.16.3.192 (※ /29)",
-      "> 172.16.2.128 (※ /25)"
+      "> 172.16.3.128 (※ /28)",
+      "(展示のルーティングテーブルにおけるプレフィックス長からサブネットマスクを導き出します)"
     ],
     "dndPairs": {
       "255.255.254.0": "> 172.16.4.0 (※ /23)",
@@ -3442,10 +3442,10 @@ const allQuestions = [
     "explanation": "※公式の解答画像には技術的な誤りが複数含まれていますが、試験対策としてマッピングを記憶してください。\n・spurious DHCP server（偽DHCPサーバー）：IP構成を詐称する不正な（rogue）サーバー。\n・trusted（信頼されたポート）：DHCPサーバーや他のスイッチが接続されるポート。\n・untrusted（信頼されないポート）：DHCPスヌーピング有効化時のすべてのインターフェースのデフォルト状態。\n・snooping binding database：クライアントのMAC、割り当てられたIP、VLAN、リース時間などを記録するデータベース。",
     "dndTargets": [
       "> internal device under the control of the network administrator",
-      "> list of hosts on the network that are unknown to the administrative domain (※正しくはknownだが公式画像の通り)",
-      "> network component that propagates IP addresses to hosts on the network (DHCP Server)",
       "> rogue server that spoofs IP configuration",
-      "> default state of all interfaces"
+      "> list of hosts on the network that are unknown to the administrative domain (※正しくはknownだが公式画像の通り)",
+      "> default state of all interfaces",
+      "> network component that propagates IP addresses to hosts on the network (DHCP Server)"
     ],
     "dndPairs": {
       "snooping binding database": "> list of hosts on the network that are unknown to the administrative domain (※正しくはknownだが公式画像の通り)",
@@ -3575,10 +3575,10 @@ const allQuestions = [
     "answer": "multicast address used only locally within the site -> FF05::23:becf:22:1111\naddress that is automatically created on a link when IPv6 is enabled on an interface -> FE80::abcf:ffff:12de:3992\naddress that is prohibited from routing to the Internet -> FD00:0000:0000:1a2d:a153:3992:a19d:ccca\naddress that is unique and reserved for documentation purposes -> 2001:DB8::bced:1234:456d:aacc",
     "explanation": "・FF00::/8 はマルチキャストアドレスです。\n・FE80::/10 はリンクローカルアドレスであり、IPv6が有効になると各インターフェースに自動生成されます。\n・FC00::/7 (ここではFD00～) はユニークローカルアドレス(ULA)であり、インターネット上でルーティングされません。\n・2001:DB8::/32 はグローバルユニキャストの特別なブロックであり、ドキュメントやマニュアルの例示用として予約されています。",
     "dndTargets": [
-      "> FE80::abcf:ffff:12de:3992",
       "> FF05::23:becf:22:1111",
       "> 2001:DB8::bced:1234:456d:aacc",
-      "> FD00:0000:0000:1a2d:a153:3992:a19d:ccca"
+      "> FD00:0000:0000:1a2d:a153:3992:a19d:ccca",
+      "> FE80::abcf:ffff:12de:3992"
     ],
     "dndPairs": {
       "multicast address used only locally within the site": "> FF05::23:becf:22:1111",
@@ -3642,8 +3642,8 @@ const allQuestions = [
     "explanation": "・DHCPスヌーピング：不正な（rogue）DHCPサーバーによるIP構成の詐称を防ぎます。\n・ダイナミックARPインスペクション（DAI）：DHCPスヌーピングデータベースを参照し、不正なARPパケット（ARPスプーフィングやキャッシュポイズニング）をブロックします。\n・IPソースガード（IPSG）：送信元IPアドレスのスプーフィング（なりすまし）を防ぎます。\n・ストームコントロール：ブロードキャストやマルチキャストのフラッディングによるトラフィックの嵐（ストーム）を制限・緩和します。",
     "dndTargets": [
       "> rogue server that spoofs IP configuration",
-      "> IP spoofing (※公式画像に明記されていないが類推)",
       "> flood attacks / MAC flooding attack",
+      "> IP spoofing (※公式画像に明記されていないが類推)",
       "> ARP spoofing / cache poisoning"
     ],
     "dndPairs": {
@@ -3816,12 +3816,12 @@ const allQuestions = [
     "answer": "classification -> categorizes packets based on the value of a traffic descriptor\nshaping -> uses defined criteria to limit the transmission of one or more classes of traffic (※バッファリング含む)\npolicing -> outcome of overutilization (※または破棄/マーキングによる制限)\ncongestion -> prevents congestion by reducing the flow of outbound traffic (※不正確なマッピング)\nclass-based weighted fair queueing -> guarantees minimum bandwidth to specific traffic classes when an interface is congested\n(※ソース画像における解答マッピング：classification, shaping, policing, congestion, CBWFQ)",
     "explanation": "QoSメカニズムの定義です。\n・Classification（分類）：パケットのヘッダ情報（DSCP値など）に基づいてトラフィックをカテゴリ分けします。\n・Shaping（シェーピング）：超過トラフィックをバッファに入れ、送出レートを平滑化します。\n・Policing（ポリシング）：設定レートを超えたパケットを直ちに破棄（またはマーキング変更）します。\n・CBWFQ：インターフェースの輻輳時に、特定のトラフィッククラスに対して最低保証帯域幅を提供します。",
     "dndTargets": [
-      "> uses defined criteria to limit the transmission of one or more classes of traffic (※バッファリング含む)",
+      "based weighted fair queueing -> guarantees minimum bandwidth to specific traffic classes when an interface is congested",
+      "> categorizes packets based on the value of a traffic descriptor",
+      "(※ソース画像における解答マッピング：classification, shaping, policing, congestion, CBWFQ)",
       "> prevents congestion by reducing the flow of outbound traffic (※不正確なマッピング)",
       "> outcome of overutilization (※または破棄/マーキングによる制限)",
-      "> categorizes packets based on the value of a traffic descriptor",
-      "based weighted fair queueing -> guarantees minimum bandwidth to specific traffic classes when an interface is congested",
-      "(※ソース画像における解答マッピング：classification, shaping, policing, congestion, CBWFQ)"
+      "> uses defined criteria to limit the transmission of one or more classes of traffic (※バッファリング含む)"
     ],
     "dndPairs": {
       "classification": "> categorizes packets based on the value of a traffic descriptor",
@@ -4108,15 +4108,15 @@ const allQuestions = [
     "explanation": "TCP（Transmission Control Protocol）は接続指向で信頼性の高いプロトコルであり、HTTP（Web）、SMTP（メール送信）、Telnet（リモートアクセス）などで使用されます。UDP（User Datagram Protocol）はコネクションレスで高速な通信を提供し、SNMP（ネットワーク監視）やRTP（リアルタイム音声/動画）で使用されます。DNSは通常の名前解決クエリにUDP（ポート53）を使用し、ゾーン転送や512バイトを超える大きな応答にはTCP（ポート53）を使用します。",
     "dndTargets": [
       "",
-      "HTTP",
-      "(※DNSはTCPとUDPの両方を使用しますが、公式の解答パターンでは両方に分類されます)",
+      "SMTP",
+      "Telnet",
+      "RTP",
       "SNMP",
       "DNS",
-      "DNS",
-      "RTP",
-      "Telnet",
-      "SMTP",
-      ""
+      "HTTP",
+      "",
+      "(※DNSはTCPとUDPの両方を使用しますが、公式の解答パターンでは両方に分類されます)",
+      "DNS"
     ],
     "dndPairs": {
       "TCP": "",
@@ -4191,11 +4191,11 @@ const allQuestions = [
     "answer": "Active -> is forwarding packets\nLearn -> is waiting to hear from the neighbor device (※ルーターからHelloを受信中だがVIPは未決定)\nListen -> has heard from the neighbor device and is receiving hello packets\nSpeak -> is transmitting and receiving hello packets\nStandby -> is ready to forward packets if the device that is currently forwarding packets fails",
     "explanation": "HSRP（Hot Standby Router Protocol）のステートマシンの定義です。\n・Active：仮想MACとVIPを使用してパケットを転送している状態。\n・Standby：Activeルーターがダウンした際に即座に引き継ぐための待機状態。\n・Speak：定期的なHelloメッセージを送信し、Active/Standbyの選出に参加している状態。\n・Listen：仮想IPを知っており、Active/StandbyルーターからのHelloメッセージを監視している状態。",
     "dndTargets": [
-      "> is forwarding packets",
-      "> is waiting to hear from the neighbor device (※ルーターからHelloを受信中だがVIPは未決定)",
-      "> has heard from the neighbor device and is receiving hello packets",
       "> is transmitting and receiving hello packets",
-      "> is ready to forward packets if the device that is currently forwarding packets fails"
+      "> is waiting to hear from the neighbor device (※ルーターからHelloを受信中だがVIPは未決定)",
+      "> is forwarding packets",
+      "> is ready to forward packets if the device that is currently forwarding packets fails",
+      "> has heard from the neighbor device and is receiving hello packets"
     ],
     "dndPairs": {
       "Active": "> is forwarding packets",
@@ -4482,11 +4482,11 @@ const allQuestions = [
     "answer": "POST -> creates a resource on the server\nGET -> reads data from the server\nDELETE -> removes a resource from the server\nPUT -> updates an entry in the database (完全な置換)\nPATCH -> (部分的な更新。※選択肢に余りとして残るか、対応する説明がある)",
     "explanation": "REST APIは標準的なHTTPメソッドを使用してサーバー上のリソースに対するCRUD（Create, Read, Update, Delete）操作を行います。\n・POST: 新しいリソースを作成する（Create）\n・GET: サーバーからデータを読み取る/取得する（Read）\n・PUT: 既存のリソース全体を更新/置換する（Update）\n・PATCH: 既存のリソースの一部のみを更新する（Update）\n・DELETE: リソースを削除する（Delete）",
     "dndTargets": [
-      "> updates an entry in the database (完全な置換)",
       "> creates a resource on the server",
-      "> removes a resource from the server",
       "> reads data from the server",
-      "> (部分的な更新。※選択肢に余りとして残るか、対応する説明がある)"
+      "> removes a resource from the server",
+      "> (部分的な更新。※選択肢に余りとして残るか、対応する説明がある)",
+      "> updates an entry in the database (完全な置換)"
     ],
     "dndPairs": {
       "POST": "> creates a resource on the server",
@@ -4562,11 +4562,11 @@ const allQuestions = [
     "answer": "broadcast address -> 192.168.1.255\ndefault gateway -> 192.168.1.1\nhost IP address -> 192.168.1.20\nlast assignable IP address in the subnet -> 192.168.1.254\nMAC address -> B8-76-3F-7C-57-DF",
     "explanation": "Windowsの `ipconfig /all` 出力からネットワークパラメータを読み取ります。Physical AddressはMACアドレス（B8-76...）です。IPv4 AddressはホストのIP（.20）です。Default GatewayはルーターのIP（.1）です。サブネットマスクが 255.255.255.0（/24）であるため、このサブネットのブロードキャストアドレスはホスト部がすべて1の `192.168.1.255` となり、ホストに割り当て可能な最後のアドレスはその1つ手前の `192.168.1.254` となります。",
     "dndTargets": [
-      "> B8-76-3F-7C-57-DF",
+      "> 192.168.1.255",
       "> 192.168.1.1",
-      "> 192.168.1.20",
       "> 192.168.1.254",
-      "> 192.168.1.255"
+      "> B8-76-3F-7C-57-DF",
+      "> 192.168.1.20"
     ],
     "dndPairs": {
       "broadcast address": "> 192.168.1.255",
@@ -4666,10 +4666,10 @@ const allQuestions = [
     "answer": "accounting -> tracks activity\nauthentication -> verifies identity\nauthorization -> verifies access rights\nCoA -> updates session attributes",
     "explanation": "AAAフレームワークの基本概念です。\n・Authentication（認証）：ユーザーの身元を確認します（verifies identity）。\n・Authorization（認可）：ユーザーが実行できる操作やアクセス権を確認・制限します（verifies access rights）。\n・Accounting（アカウンティング）：課金や監査のためにユーザーの活動やリソース使用量を追跡・記録します（tracks activity）。\n・CoA（Change of Authorization）：セッションがアクティブな間に、ISEなどのAAAサーバーが動的にセッション属性やアクセス権を変更・更新する機能です。",
     "dndTargets": [
-      "> updates session attributes",
-      "> tracks activity",
+      "> verifies access rights",
       "> verifies identity",
-      "> verifies access rights"
+      "> tracks activity",
+      "> updates session attributes"
     ],
     "dndPairs": {
       "accounting": "> tracks activity",
@@ -4947,15 +4947,15 @@ const allQuestions = [
     "explanation": "※試験問題のDumps解答画像には重大な技術的誤りが含まれています。本来「configured and managed by a WLC（WLCによって設定・管理される）」のは『Lightweight AP』の特性であり、自律型（Autonomous）の特性ではありません。また、Cloud-based（Merakiなど）はWebベースのダッシュボードから管理され、自動展開をサポートします。本番環境では文脈から最も妥当な組み合わせを選ぶか、既知のダンプの誤答パターンに注意してください。",
     "dndTargets": [
       "accessible for mgmt via Telnet/SSH/GUI, configured and managed by a WLC (大間違いですが画像通りとします)",
-      "",
-      "Based Access Point:",
-      "supports automatic deployment",
-      "(※提供された公式解答画像によると以下のようになっています)",
       "configured and managed by a WLC (※これは不正解のはずですが公式画像ではここにマッピングされている可能性があります。後述の解説参照)",
-      "requires a management IP address",
-      "accessible for management via Telnet, SSH, or a web GUI",
+      "(※提供された公式解答画像によると以下のようになっています)",
       "managed from a web-based dashboard",
-      "Based: requires a management IP address, supports automatic deployment"
+      "Based: requires a management IP address, supports automatic deployment",
+      "accessible for management via Telnet, SSH, or a web GUI",
+      "supports automatic deployment",
+      "requires a management IP address",
+      "Based Access Point:",
+      ""
     ],
     "dndPairs": {
       "Autonomous Access Point": "",
@@ -5076,11 +5076,11 @@ const allQuestions = [
     "answer": "1 -> An endpoint submits a request for the IP address of a domain name.\n2 -> The DNS submits a request to a root DNS server.\n3 -> The DNS submits a request to the domain DNS server.\n4 -> The DNS receives a reply from the domain DNS server.\n5 -> The DNS responds to the endpoint.",
     "explanation": "名前解決のプロセス順序です。\n1. エンドポイント（PC等）がローカルのDNSリゾルバ（DNSサーバー）にFQDNのIPアドレスを要求します。\n2. ローカルDNSサーバーがキャッシュを持っていない場合、インターネットの頂点であるルートDNSサーバーに問い合わせます。\n3. ルートからの応答（委譲）を受け、DNSサーバーは対象ドメインを管理する権威DNSサーバーに問い合わせます。\n4. DNSサーバーが権威DNSサーバーから目的のIPアドレスを含む応答を受け取ります。\n5. DNSサーバーが最終的なIPアドレスをエンドポイントに返します。",
     "dndTargets": [
+      "> The DNS submits a request to the domain DNS server.",
       "> The DNS responds to the endpoint.",
       "> The DNS submits a request to a root DNS server.",
       "> An endpoint submits a request for the IP address of a domain name.",
-      "> The DNS receives a reply from the domain DNS server.",
-      "> The DNS submits a request to the domain DNS server."
+      "> The DNS receives a reply from the domain DNS server."
     ],
     "dndPairs": {
       "1": "> An endpoint submits a request for the IP address of a domain name.",
@@ -5331,11 +5331,11 @@ const allQuestions = [
     "explanation": "TCPは接続指向で信頼性が求められるプロトコルで使用されます。FTP（ファイル転送）、SMTP（メール送信）、SSH（セキュアなリモートアクセス）、HTTP/HTTPSなどがこれに該当します。\nUDPはコネクションレスで高速性やブロードキャスト機能が求められるプロトコルで使用されます。DHCP（IP自動割り当て）、SNMP（ネットワーク監視）、TFTP（簡易ファイル転送）、RTP/VoIPなどがこれに該当します。",
     "dndTargets": [
       "TFTP (ポート69)",
-      "SSH (ポート22)",
-      "SMTP (ポート25)",
       "FTP (ポート20, 21)",
-      "SNMP (ポート161, 162)",
       "",
+      "SSH (ポート22)",
+      "SNMP (ポート161, 162)",
+      "SMTP (ポート25)",
       "",
       "DHCP (ポート67, 68)"
     ],
@@ -5519,12 +5519,12 @@ const allQuestions = [
     "answer": "Traditional Networking:\n- This type implements changes individually at each device.\n- Maintenance costs are higher than with other networking options.\n\nController-Based Networking:\n- This type leverages controllers to handle network management.\n- This type provides a centralized view of the network.",
     "explanation": "従来のネットワーク（Traditional Networking）は、各デバイスのCLIに個別にログインして設定変更を行う必要があり、手動での管理オーバーヘッドにより運用・保守コストが高くなります。コントローラーベースのネットワーク（SDNなど）は、中央のコントローラーがネットワーク全体を統合管理し、全体の一元的なビュー（可視性）と自動化を提供します。",
     "dndTargets": [
-      "This type provides a centralized view of the network.",
-      "Maintenance costs are higher than with other networking options.",
-      "This type implements changes individually at each device.",
-      "This type leverages controllers to handle network management.",
+      "",
       "Based Networking:",
-      ""
+      "This type implements changes individually at each device.",
+      "This type provides a centralized view of the network.",
+      "This type leverages controllers to handle network management.",
+      "Maintenance costs are higher than with other networking options."
     ],
     "dndPairs": {
       "Traditional Networking": "",
@@ -6284,12 +6284,12 @@ const allQuestions = [
     "answer": "Traditional Networking:\n- This type implements changes individually at each device.\n- Maintenance costs are higher than with other networking options.\n\nController-Based Networking:\n- This type leverages controllers to handle network management.\n- This type provides a centralized view of the network.",
     "explanation": "NO.357と同一問題です。従来のネットワーク（Traditional Networking）は分散管理であり、各デバイス個別のCLI設定が必要で保守コストが高いというデメリットがあります。コントローラーベースのネットワーク（SDNなど）は、中央のコントローラーを利用して設定と管理を一元化し、ネットワーク全体の可視性（centralized view）を提供します。",
     "dndTargets": [
-      "This type implements changes individually at each device.",
-      "Based Networking:",
-      "This type leverages controllers to handle network management.",
       "Maintenance costs are higher than with other networking options.",
-      "This type provides a centralized view of the network.",
-      ""
+      "This type implements changes individually at each device.",
+      "",
+      "This type leverages controllers to handle network management.",
+      "Based Networking:",
+      "This type provides a centralized view of the network."
     ],
     "dndPairs": {
       "Traditional Networking": "",
@@ -6311,14 +6311,14 @@ const allQuestions = [
     "answer": "TCP:\n- sends transmissions in sequence\n- transmits packets as a stream\n- uses a lower transmission rate to ensure reliability\n\nUDP:\n- transmissions include an 8-byte header\n- transmits packets individually\n- uses a higher transmission rate to support latency-sensitive applications",
     "explanation": "TCPは信頼性を重視するため、コネクションを確立してデータをストリームとして順序通り（in sequence）に送信し、エラーがあれば再送するため伝送速度は相対的に低くなります（ヘッダは最低20バイト）。UDPは速度とリアルタイム性を重視するため、音声やビデオなどの遅延に敏感な（latency-sensitive）アプリケーションで使用され、パケットを独立したデータグラムとして個別に送信します（ヘッダは非常に軽量な8バイトです）。",
     "dndTargets": [
+      "transmits packets individually",
       "uses a higher transmission rate to support latency-sensitive applications",
       "uses a lower transmission rate to ensure reliability",
-      "transmits packets as a stream",
       "sends transmissions in sequence",
       "",
-      "transmits packets individually",
-      "transmissions include an 8-byte header",
-      ""
+      "",
+      "transmits packets as a stream",
+      "transmissions include an 8-byte header"
     ],
     "dndPairs": {
       "TCP": "",
@@ -6686,12 +6686,12 @@ const allQuestions = [
     "answer": "Accounting:\n- It records the amount of network resources consumed by the user.\n- It tracks the services that a user is using.\n\nAuthentication:\n- It permits and denies login attempts.\n- It supports local, PPP, RADIUS, and TACACS+ options",
     "explanation": "AAA機能の定義の再確認です。\n・Authentication（認証）：パスワード等を用いてログインの試行を許可または拒否し（身元確認）、ローカルデータベースやRADIUS/TACACS+サーバーを使用できます。\n・Accounting（アカウンティング）：ユーザーがネットワーク上で使用したリソースの量（通信時間やデータ量）を記録し、使用しているサービスを追跡（監視）します。\n（※「It assigns per-user attributes」はAuthorization（認可）の役割です）",
     "dndTargets": [
-      "It tracks the services that a user is using.",
       "It records the amount of network resources consumed by the user.",
+      "It supports local, PPP, RADIUS, and TACACS+ options",
       "It permits and denies login attempts.",
       "",
       "",
-      "It supports local, PPP, RADIUS, and TACACS+ options"
+      "It tracks the services that a user is using."
     ],
     "dndPairs": {
       "Accounting": "",
@@ -7026,14 +7026,14 @@ const allQuestions = [
     "answer": "FTP:\n- provides reliability when loading an IOS image upon boot up\n- uses ports 20 and 21\n- uses TCP\n\nTFTP:\n- does not require user authentication\n- uses port 69\n- uses UDP",
     "explanation": "FTPとTFTPの特性の分類です。\nFTP（File Transfer Protocol）：TCPを使用し、制御（ポート21）とデータ（ポート20）の2つのコネクションを持ちます。ユーザー名とパスワードによる認証が必要で、信頼性の高いデータ転送を提供します。\nTFTP（Trivial FTP）：UDP（ポート69）を使用し、認証メカニズムを持たず、オーバーヘッドが非常に少ないため、ルーターの初期ブート時のイメージロードなど、シンプルで小規模なファイル転送に適しています。",
     "dndTargets": [
-      "uses TCP",
       "uses ports 20 and 21",
-      "",
       "uses UDP",
+      "uses TCP",
       "provides reliability when loading an IOS image upon boot up",
       "",
-      "does not require user authentication",
-      "uses port 69"
+      "",
+      "uses port 69",
+      "does not require user authentication"
     ],
     "dndPairs": {
       "FTP": "",
@@ -7053,11 +7053,11 @@ const allQuestions = [
     "answer": "Global Unicast Address:\n- is publicly routable in the same way as IPv4 addresses\n- provides for one-to-one communication\n\nLink-Local Address:\n- confined to a single link\n- required on all IPv6 devices",
     "explanation": "NO.070、100等の類似問題です。\n・グローバルユニキャストアドレス（GUA）：インターネット全体で一意であり、IPv4のパブリックIPアドレスと同様にルーティングされ、特定のノードとの1対1の通信を提供します。\n・リンクローカルアドレス（LLA）：ルーターを超えない単一のリンク（サブネット）内でのみ有効であり、IPv6が有効なすべてのインターフェースで必須（自動生成）となります。",
     "dndTargets": [
+      "is publicly routable in the same way as IPv4 addresses",
+      "Local Address:",
       "confined to a single link",
       "",
-      "is publicly routable in the same way as IPv4 addresses",
       "provides for one-to-one communication",
-      "Local Address:",
       "required on all IPv6 devices"
     ],
     "dndPairs": {
@@ -7544,11 +7544,11 @@ const allQuestions = [
     "answer": "Controller-Based Networking:\n- focused on network\n- user input is a policy\n- uses allow list security model\n\nTraditional Networking:\n- focused on devices\n- user input is a configuration\n- uses block list security model",
     "explanation": "Cisco DNA Center（SDN）のようなコントローラーベースのネットワークは、個々の機器ではなく「ネットワーク全体」に焦点を当て、CLIのコマンド（構成）ではなくビジネスの意図を反映した「ポリシー」を入力します。また、ゼロトラストに基づく「許可リスト（Allow List / ホワイトリスト）」セキュリティモデルを採用します。一方、従来のネットワークはデバイス個別のCLI「構成（Configuration）」に依存し、ACLなどの「ブロックリスト」でセキュリティを管理します。",
     "dndTargets": [
-      "user input is a policy",
-      "focused on network",
       "uses block list security model",
-      "focused on devices",
       "uses allow list security model",
+      "user input is a policy",
+      "focused on devices",
+      "focused on network",
       "Based Networking:",
       "user input is a configuration",
       ""
@@ -7773,11 +7773,11 @@ const allQuestions = [
     "answer": "1 -> switchport mode access\n2 -> switchport port-security\n3 -> switchport port-security maximum 2\n4 -> switchport port-security mac-address sticky\n(violation shutdownはデフォルト動作のため省略可能ですが、シーケンスに含まれる場合は最後に追加)",
     "explanation": "ポートセキュリティを有効にするための正しい構成シーケンスです。\n1. インターフェースをアクセスポートにする（必須）：`switchport mode access`\n2. ポートセキュリティ機能を有効にする：`switchport port-security`\n3. 「一度に2つのMAC」という要件のため最大数を設定：`switchport port-security maximum 2`\n4. 「ランダムなMAC」を動的に学習して保存するためスティッキーMACを設定：`switchport port-security mac-address sticky`",
     "dndTargets": [
-      "> switchport port-security mac-address sticky",
-      "(violation shutdownはデフォルト動作のため省略可能ですが、シーケンスに含まれる場合は最後に追加)",
-      "> switchport port-security",
       "> switchport mode access",
-      "> switchport port-security maximum 2"
+      "> switchport port-security maximum 2",
+      "(violation shutdownはデフォルト動作のため省略可能ですが、シーケンスに含まれる場合は最後に追加)",
+      "> switchport port-security mac-address sticky",
+      "> switchport port-security"
     ],
     "dndPairs": {
       "1": "> switchport mode access",
@@ -8020,11 +8020,11 @@ const allQuestions = [
     "answer": "TCP:\n- supports reliable data transmission\n- used to reliably share files between devices\n\nUDP:\n- provides best-effort service\n- appropriate for streaming operations with minimal latency",
     "explanation": "NO.073等の再出題です。TCPは再送や確認応答の機能を持つため、FTPなどでの「信頼性の高いファイル共有」やデータ転送に適しています。UDPは接続のオーバーヘッドがなく軽量であるため、一部のデータ損失が許容され、遅延を最小限に抑える必要がある音声やビデオの「ストリーミング（VoIPなど）」に適したベストエフォート型のプロトコルです。",
     "dndTargets": [
+      "used to reliably share files between devices",
+      "",
       "provides best-effort service",
       "appropriate for streaming operations with minimal latency",
       "",
-      "",
-      "used to reliably share files between devices",
       "supports reliable data transmission"
     ],
     "dndPairs": {
@@ -8249,14 +8249,14 @@ const allQuestions = [
     "answer": "Connection Oriented (TCP):\n- FTP\n- SMTP\n- SSH\n\nConnectionless (UDP):\n- TFTP\n- VoIP (RTPを使用)\n- SNMP",
     "explanation": "「Connection Oriented（コネクション指向）」はTCPを使用するプロトコルです。ファイルの確実な転送（FTP）、メールの送信（SMTP）、セキュアなリモートアクセス（SSH）が含まれます。\n「Connectionless（コネクションレス）」はUDPを使用するプロトコルです。オーバーヘッドを最小限に抑えたい簡易ファイル転送（TFTP）、リアルタイム性が求められる音声通信（VoIP）、軽量なネットワーク監視（SNMP）が含まれます。",
     "dndTargets": [
-      "TFTP",
       "SNMP",
-      "SSH",
-      "",
+      "TFTP",
       "",
       "VoIP (RTPを使用)",
+      "SSH",
       "SMTP",
-      "FTP"
+      "FTP",
+      ""
     ],
     "dndPairs": {
       "Connection Oriented (TCP)": "",
@@ -8279,14 +8279,14 @@ const allQuestions = [
     "explanation": "AAAの概念です。\n・Authentication（認証）：あなたは誰かを確認・検証します。TACACS+やRADIUSを利用したユーザー検証がこれに当たります。\n・Authorization（認可）：何ができるかを決定します。FTPサーバーなどのリソースへのアクセス許可や、ルーター上で実行可能なCLIコマンドの制限を行います。\n・Accounting（アカウンティング）：何をしたかを記録します。接続の継続時間（セッションの長さ）の記録や、監査・レポート作成機能を提供します。",
     "dndTargets": [
       "",
-      "",
-      "It verifies \"who you are\".",
-      "It performs user validation via TACACS+.",
       "It supports User Access Reporting.",
       "It restricts the CLI commands that a user is able to perform.",
+      "It performs user validation via TACACS+.",
+      "It verifies \"who you are\".",
       "It records the duration of each connection.",
-      "It grants access to network assets, such as FTP servers.",
-      ""
+      "",
+      "",
+      "It grants access to network assets, such as FTP servers."
     ],
     "dndPairs": {
       "Accounting": "",
@@ -8809,15 +8809,15 @@ const allQuestions = [
     "answer": "Authentication:\n- It verifies the user before granting access to the device.\n- It leverages a RADIUS server to grant user access to a reverse Telnet session.\n\nAuthorization:\n- It restricts the CLI commands that a user is able to perform.\n- It enables the device to allow user- or group-based access.\n\nAccounting:\n- It records the amount of time for which a user accesses the network on a remote server.\n- It uses TACACS+ to log the configuration commands entered by a network administrator.",
     "explanation": "AAAの概念です。\n・Authentication（認証）：ユーザーの身元確認を行います（パスワードの検証など）。\n・Authorization（認可）：認証されたユーザーに「何ができるか（アクセス権、CLIコマンドの制限）」を付与します。\n・Accounting（アカウンティング）：ユーザーの接続時間、使用データ量、実行したコマンドなどを記録し、監視や監査に使用します。",
     "dndTargets": [
-      "It uses TACACS+ to log the configuration commands entered by a network administrator.",
-      "",
-      "It verifies the user before granting access to the device.",
-      "",
       "It restricts the CLI commands that a user is able to perform.",
       "",
-      "It enables the device to allow user- or group-based access.",
+      "It uses TACACS+ to log the configuration commands entered by a network administrator.",
+      "It leverages a RADIUS server to grant user access to a reverse Telnet session.",
+      "It verifies the user before granting access to the device.",
+      "",
       "It records the amount of time for which a user accesses the network on a remote server.",
-      "It leverages a RADIUS server to grant user access to a reverse Telnet session."
+      "It enables the device to allow user- or group-based access.",
+      ""
     ],
     "dndPairs": {
       "Authentication": "",
@@ -8868,14 +8868,14 @@ const allQuestions = [
     "answer": "TCP:\n- SMTP\n- HTTP\n- Telnet\n\nUDP:\n- DNS\n- SNMP\n- RTP",
     "explanation": "NO.263、345の再出題です。コネクション指向で信頼性が必要なプロトコルはTCPを使用します（HTTP=Web、SMTP=メール送信、Telnet=リモートアクセス）。軽量で高速な通信が必要なプロトコルはUDPを使用します（SNMP=ネットワーク監視、RTP=リアルタイムの音声/ビデオストリーミング、DNS=通常の名前解決クエリ）。",
     "dndTargets": [
-      "SMTP",
+      "",
+      "Telnet",
+      "SNMP",
       "DNS",
       "HTTP",
+      "SMTP",
       "",
-      "RTP",
-      "",
-      "SNMP",
-      "Telnet"
+      "RTP"
     ],
     "dndPairs": {
       "TCP": "",
@@ -8897,15 +8897,15 @@ const allQuestions = [
     "answer": "10.10.13.0 -> (対応なし。ルーティングテーブルに存在しない)\n10.10.13.128 -> 255.255.255.240 (※/28に対応)\n10.10.13.160 -> 255.255.255.248 (※/29に対応)\n10.10.13.252 -> (対応なし。ルーティングテーブルには.252/30があるが画像にはない)\n\n※正しい解答画像のペアリング：\n255.255.255.128 -> 10.10.13.128 (※注意：これは/25。テーブル上は O 10.10.13.128/28 となっているため矛盾。Dumpsのバグ)\n255.255.255.240 -> 10.10.13.0 (※ルーティングテーブルには O 10.10.13.0/25 がある。矛盾)\n255.255.255.248 -> 10.10.13.160 (※O 10.10.13.160/29 に対応)\n255.255.255.252 -> 10.10.13.252 (※O 10.10.13.252/30 に対応)",
     "explanation": "※試験対策上の重大な注意：提供された展示のルーティングテーブルのCIDR（/28, /29など）と、解答画像のマッピングに深刻な矛盾があります。公式解答画像における正解パターンは以下の通りです：\n・10.10.13.128 -> 255.255.255.128 (/25)\n・10.10.13.0 -> 255.255.255.240 (/28)\n・10.10.13.160 -> 255.255.255.248 (/29)\n・10.10.13.252 -> 255.255.255.252 (/30)\n試験本番ではCIDRからマスクを計算する基礎（/25 = 128, /28 = 240, /29 = 248, /30 = 252）に従ってマッピングを行ってください。",
     "dndTargets": [
-      "※正しい解答画像のペアリング：",
-      "> (対応なし。ルーティングテーブルには.252/30があるが画像にはない)",
-      "> 10.10.13.128 (※注意：これは/25。テーブル上は O 10.10.13.128/28 となっているため矛盾。Dumpsのバグ)",
-      "> 255.255.255.248 (※/29に対応)",
-      "> 255.255.255.240 (※/28に対応)",
       "> 10.10.13.160 (※O 10.10.13.160/29 に対応)",
+      "> (対応なし。ルーティングテーブルには.252/30があるが画像にはない)",
+      "※正しい解答画像のペアリング：",
+      "> 10.10.13.128 (※注意：これは/25。テーブル上は O 10.10.13.128/28 となっているため矛盾。Dumpsのバグ)",
+      "> 255.255.255.240 (※/28に対応)",
+      "> (対応なし。ルーティングテーブルに存在しない)",
+      "> 255.255.255.248 (※/29に対応)",
       "> 10.10.13.0 (※ルーティングテーブルには O 10.10.13.0/25 がある。矛盾)",
-      "> 10.10.13.252 (※O 10.10.13.252/30 に対応)",
-      "> (対応なし。ルーティングテーブルに存在しない)"
+      "> 10.10.13.252 (※O 10.10.13.252/30 に対応)"
     ],
     "dndPairs": {
       "10.10.13.0": "> (対応なし。ルーティングテーブルに存在しない)",
@@ -8945,10 +8945,10 @@ const allQuestions = [
     "answer": "ip domain-name -> completes the FQDN of the DNS server (ホスト名と組み合わせてFQDNを形成)\nip domain-lookup -> enables host-to-IP-address translation (DNS解決を有効にする)\nshow hosts -> displays address-mapping information (キャッシュされたDNSエントリやスタティックホストを表示)\nip host switch_1 192.168.0.1 -> adds an entry to the host table (ローカルのホスト名とIPのマッピングを静的に追加)\nip name-server -> specifies the IP address of the DNS server (名前解決の問い合わせ先DNSサーバーのIPを指定)",
     "explanation": "Cisco IOSにおけるDNS機能の設定コマンド群です。\n・`ip domain-lookup`：CLIで入力された不明な文字列をDNSで解決する機能を有効にします（デフォルトで有効）。\n・`ip domain-name`：ルーターが自身のFQDNを形成するためや、DNSクエリに付加するデフォルトのドメイン名を設定します。\n・`ip name-server`：外部のDNSサーバー（例：8.8.8.8）のIPアドレスを指定します。\n・`ip host`：DNSサーバーに頼らず、ローカルでスタティックにホスト名とIPアドレスを紐付けます。",
     "dndTargets": [
-      "> adds an entry to the host table (ローカルのホスト名とIPのマッピングを静的に追加)",
-      "name -> completes the FQDN of the DNS server (ホスト名と組み合わせてFQDNを形成)",
       "> displays address-mapping information (キャッシュされたDNSエントリやスタティックホストを表示)",
+      "> adds an entry to the host table (ローカルのホスト名とIPのマッピングを静的に追加)",
       "lookup -> enables host-to-IP-address translation (DNS解決を有効にする)",
+      "name -> completes the FQDN of the DNS server (ホスト名と組み合わせてFQDNを形成)",
       "server -> specifies the IP address of the DNS server (名前解決の問い合わせ先DNSサーバーのIPを指定)"
     ],
     "dndPairs": {
@@ -9118,14 +9118,14 @@ const allQuestions = [
     "answer": "Accounting:\n- records user commands\n- logs session statistics\n\nAuthentication:\n- validates user credentials\n- allows the user to change to enable mode\n\nAuthorization:\n- limits the user's access permissions\n- secures access to routers",
     "explanation": "・Authentication（認証）：「このユーザーは誰か」を検証します。パスワードによるユーザー資格情報の検証や、特権モード（enable mode）への移行の許可を行います。\n・Authorization（認可）：「このユーザーに何が許可されているか」を制御します。ユーザーのアクセス権限を制限し、ルーター等のリソースへのアクセスを保護します。\n・Accounting（アカウンティング）：「このユーザーが何をしたか」を追跡します。実行されたコマンドの記録や、セッションの通信時間・データ量（統計）をログに記録します。",
     "dndTargets": [
-      "",
-      "records user commands",
-      "logs session statistics",
-      "limits the user's access permissions",
+      "allows the user to change to enable mode",
       "",
       "validates user credentials",
+      "limits the user's access permissions",
+      "records user commands",
+      "logs session statistics",
       "secures access to routers",
-      "allows the user to change to enable mode",
+      "",
       ""
     ],
     "dndPairs": {
@@ -9181,11 +9181,11 @@ const allQuestions = [
     "answer": "1 -> maintains an address pool\n2 -> provides local control for network segments using a client-server scheme\n3 -> reduces the administrative burden for onboarding end users\n4 -> assigns IP addresses to local hosts for a configurable lease time\n(※公式解答画像におけるマッピングです)",
     "explanation": "DHCP（Dynamic Host Configuration Protocol）の主要な機能に関する説明です。\n・DHCPはネットワーク上に割り当て可能なIPアドレスの「プールを維持（maintains an address pool）」します。\n・「クライアント・サーバーモデル」を使用してネットワークセグメントのIP割り当てを一元管理します。\n・PCやスマートフォンなどのエンドユーザーがネットワークに接続（オンボーディング）する際の手動設定の「管理負担を軽減」します。\n・設定された「リース期間（lease time）」の間、クライアントにIPアドレスを動的に割り当てます。",
     "dndTargets": [
-      "> assigns IP addresses to local hosts for a configurable lease time",
+      "> reduces the administrative burden for onboarding end users",
       "> provides local control for network segments using a client-server scheme",
       "> maintains an address pool",
-      "> reduces the administrative burden for onboarding end users",
-      "(※公式解答画像におけるマッピングです)"
+      "(※公式解答画像におけるマッピングです)",
+      "> assigns IP addresses to local hosts for a configurable lease time"
     ],
     "dndPairs": {
       "1": "> maintains an address pool",
@@ -9237,13 +9237,13 @@ const allQuestions = [
     "answer": "inventory -> Ansible file that defines the target devices upon which commands and tasks can be executed\nplaybook -> collection of actions to perform on target devices, expressed in YAML format\nmodule -> unit of Python code to be executed\ntask -> specific action to be performed on one or more target devices\nmanaged node -> network device, without Ansible installed, upon which commands can be executed\ncontrol node -> device with Ansible installed that manages target devices\n(※解答画像における順番に依存。解説参照)",
     "explanation": "Ansibleの主要概念です。\n・Control node（コントロールノード）：Ansibleがインストールされ、全体の管理を実行するマシン。\n・Managed node（管理対象ノード）：Ansible（エージェント）がインストールされていなくても、SSH経由で設定が適用されるターゲットデバイス。\n・Inventory（インベントリ）：管理対象ノードのIPアドレスやグループ情報を定義したリストファイル。\n・Playbook（プレイブック）：実行するタスクの順序や構成をYAML形式で記述した設計書。\n・Task（タスク）：ターゲットに対して実行する単一の具体的なアクション。\n・Module（モジュール）：タスクの裏側で実際にターゲット上で動作するPython等のコード単位。",
     "dndTargets": [
-      "> network device, without Ansible installed, upon which commands can be executed",
+      "> specific action to be performed on one or more target devices",
       "> device with Ansible installed that manages target devices",
       "> unit of Python code to be executed",
-      "> specific action to be performed on one or more target devices",
       "> Ansible file that defines the target devices upon which commands and tasks can be executed",
+      "(※解答画像における順番に依存。解説参照)",
       "> collection of actions to perform on target devices, expressed in YAML format",
-      "(※解答画像における順番に依存。解説参照)"
+      "> network device, without Ansible installed, upon which commands can be executed"
     ],
     "dndPairs": {
       "inventory": "> Ansible file that defines the target devices upon which commands and tasks can be executed",
@@ -9309,9 +9309,9 @@ const allQuestions = [
     "answer": "wireless LAN controller -> manages access points\naccess point -> provides Wi-Fi devices with a connection to a wired network\nservice port -> used for out-of-band management\nvirtual interface -> used for guest authentication\ndynamic interface -> applied to the WLAN for wireless client communication",
     "explanation": "NO.186と同一のWLCコンポーネント問題です。\n・WLC：複数APを集中管理。\n・AP：無線クライアントと有線ネットワークを接続。\n・Service port：データ通信とは切り離された保守・管理用（Out-of-band）ポート。\n・Virtual interface：ゲストWeb認証のリダイレクトやモビリティに使用される仮想IP。\n・Dynamic interface：ユーザーのVLANとSSIDをマッピングするための動的インターフェース。",
     "dndTargets": [
-      "> applied to the WLAN for wireless client communication",
       "> used for out-of-band management",
       "> used for guest authentication",
+      "> applied to the WLAN for wireless client communication",
       "> manages access points",
       "> provides Wi-Fi devices with a connection to a wired network"
     ],
@@ -9576,13 +9576,13 @@ const allQuestions = [
     "answer": "Unique Local Addresses:\n- IPv6 addresses that begin with FD\n- may be used by multiple organizations at the same time\n- private IPv6 addresses\n\nLink-Local Addresses:\n- serve as next-hop addresses\n(※公式画像に基づくマッピング)",
     "explanation": "・Unique Local Address（ユニークローカルアドレス: ULA）は、プレフィックス FC00::/7（通常FDで始まる）を使用し、IPv4のプライベートIPアドレスに相当します。インターネットにルーティングされないため、複数組織で同時に使用可能です。\n・Link-Local Address（リンクローカルアドレス）は、同一リンク上でのみ有効であり、OSPFv3等のルーティングプロトコルにおいてネクストホップアドレスとして機能します。",
     "dndTargets": [
-      "may be used by multiple organizations at the same time",
       "(※公式画像に基づくマッピング)",
-      "",
+      "may be used by multiple organizations at the same time",
       "serve as next-hop addresses",
-      "private IPv6 addresses",
       "IPv6 addresses that begin with FD",
-      "Local Addresses:"
+      "",
+      "Local Addresses:",
+      "private IPv6 addresses"
     ],
     "dndPairs": {
       "Unique Local Addresses": "",
@@ -9758,11 +9758,11 @@ const allQuestions = [
     "answer": "Multicast:\n- sends packets to a group address rather than a single address\n- has a unicast source sent to a group\n\nAnycast:\n- is used exclusively by a non-host device\n- is routed to the nearest interface that has the address",
     "explanation": "・IPv6マルチキャストアドレス（ff00::/8）は、単一の送信元（ユニキャスト）から特定のグループに属する複数の受信者へパケットを同時に配信するためのアドレスです。\n・IPv6エニーキャストアドレスは、複数のルーター（通常ホストには割り当てない非ホストデバイス）のインターフェースに同じIPを割り当て、送信元から見てルーティングトポロジ上「最も近い（nearest）」1つのデバイスにのみパケットがルーティングされる仕組みです。ロードバランシングや冗長化に利用されます。",
     "dndTargets": [
-      "",
-      "sends packets to a group address rather than a single address",
-      "is used exclusively by a non-host device",
       "has a unicast source sent to a group",
+      "",
       "is routed to the nearest interface that has the address",
+      "is used exclusively by a non-host device",
+      "sends packets to a group address rather than a single address",
       ""
     ],
     "dndPairs": {
@@ -9784,11 +9784,11 @@ const allQuestions = [
     "explanation": "NO.070や100、461の再出題です。\n・グローバルユニキャストアドレスはインターネット上でルーティング可能であり、1対1の通信を提供します。\n・リンクローカルアドレスは、自動的に生成され、ルーターを超えない単一のリンク（サブネット）内でのみ有効であり、ルーティングプロトコル等でネクストホップアドレスとして利用されます。",
     "dndTargets": [
       "provides for one-to-one communication",
-      "serves as the next-hop addresses",
+      "confined to a single link",
       "Local Address:",
       "",
       "is routable and reachable via the Internet",
-      "confined to a single link"
+      "serves as the next-hop addresses"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -9879,15 +9879,15 @@ const allQuestions = [
     "answer": "first -> enable\nsecond -> configure terminal\nthird -> enable secret shf!@4fs\nfourth -> exit (または line vty 0 4)\n(※公式画像は以下の順序を示しています)\n1: enable\n2: configure terminal\n3: enable secret shf!@4fs\n4: line vty 0 4",
     "explanation": "Ciscoルーターで `enable secret` パスワードを設定する際の正しいコマンド操作順序です。\n1. ユーザーEXECモードから `enable` コマンドを入力して特権EXECモードに入ります。\n2. `configure terminal` コマンドを入力してグローバルコンフィギュレーションモードに入ります。\n3. `enable secret shf!@4fs` コマンドを使用して、強力なハッシュで暗号化される特権モードパスワードを設定します。\n4. その後、必要に応じてVTYライン設定などに移行します（`line vty 0 4`）。",
     "dndTargets": [
-      "(※公式画像は以下の順序を示しています)",
-      "> exit (または line vty 0 4)",
-      "configure terminal",
-      "enable secret shf!@4fs",
-      "line vty 0 4",
-      "enable",
       "> enable secret shf!@4fs",
+      "(※公式画像は以下の順序を示しています)",
+      "enable",
+      "line vty 0 4",
       "> configure terminal",
-      "> enable"
+      "enable secret shf!@4fs",
+      "> exit (または line vty 0 4)",
+      "> enable",
+      "configure terminal"
     ],
     "dndPairs": {
       "1": "enable",
@@ -9913,11 +9913,11 @@ const allQuestions = [
     "answer": "security policy -> document that outlines an organization's security goals and practices and the roles and responsibilities of the organization's personnel\nsecurity standard -> tactical document that sets out specific tasks and methods to maintain security\neducation -> user-awareness learning level that focuses on learning about topics and practices beyond what is typically required by the user's job\nawareness -> user-awareness learning level that focuses on security practices that all employees must understand and enforce\ntraining -> user-awareness learning level that focuses on teaching employees how to perform tasks specifically required by their jobs",
     "explanation": "情報セキュリティプログラムの文書とユーザー教育レベルの定義です。\n・Security Policy（ポリシー）：組織の目標、ルール、責任を定めた最上位の文書。\n・Security Standard（標準）：ポリシーを達成するための具体的な戦術的タスクや方法を定めた文書。\n・Awareness（アウェアネス/啓発）：全従業員が理解し守るべき基本的なセキュリティ実践。\n・Training（トレーニング）：特定の職務を安全に遂行するための具体的なスキルの教育。\n・Education（教育）：職務の要件を超えた、より広範で深いセキュリティ知識の学習。",
     "dndTargets": [
-      "> user-awareness learning level that focuses on learning about topics and practices beyond what is typically required by the user's job",
       "> document that outlines an organization's security goals and practices and the roles and responsibilities of the organization's personnel",
       "> tactical document that sets out specific tasks and methods to maintain security",
-      "> user-awareness learning level that focuses on security practices that all employees must understand and enforce",
-      "> user-awareness learning level that focuses on teaching employees how to perform tasks specifically required by their jobs"
+      "> user-awareness learning level that focuses on learning about topics and practices beyond what is typically required by the user's job",
+      "> user-awareness learning level that focuses on teaching employees how to perform tasks specifically required by their jobs",
+      "> user-awareness learning level that focuses on security practices that all employees must understand and enforce"
     ],
     "dndPairs": {
       "security policy": "> document that outlines an organization's security goals and practices and the roles and responsibilities of the organization's personnel",
@@ -10002,12 +10002,12 @@ const allQuestions = [
     "dndTargets": [
       "",
       "uses sequence numbers",
-      "minimal error checking",
       "relies on acknowledgment packets",
       "ensures data integrity",
-      "connectionless at transport layer",
+      "",
       "supports real-time applications",
-      ""
+      "connectionless at transport layer",
+      "minimal error checking"
     ],
     "dndPairs": {
       "TCP": "",
@@ -10325,15 +10325,15 @@ const allQuestions = [
     "answer": "Authentication:\n- identifies the user\n- verifies the password associated with a user\n\nAuthorization:\n- restricts the services that are available to a user\n- controls the actions that a user can perform\n\nAccounting:\n- records user activities\n- provides analytical information for the network administrator",
     "explanation": "AAAの概念です。\n・Authentication（認証）：ユーザーのIDを識別し、パスワードを検証して「本人であること」を確認します。\n・Authorization（認可）：認証されたユーザーがシステム内で「何を実行できるか」のアクションやサービスを制限・制御します。\n・Accounting（アカウンティング）：ユーザーの操作や活動を記録し、管理者向けに監査や分析のための情報を提供します。",
     "dndTargets": [
-      "controls the actions that a user can perform",
-      "records user activities",
       "",
+      "provides analytical information for the network administrator",
       "identifies the user",
       "verifies the password associated with a user",
-      "provides analytical information for the network administrator",
-      "restricts the services that are available to a user",
       "",
-      ""
+      "restricts the services that are available to a user",
+      "controls the actions that a user can perform",
+      "",
+      "records user activities"
     ],
     "dndPairs": {
       "Authentication": "",
@@ -10866,8 +10866,8 @@ const allQuestions = [
     "dndTargets": [
       "> 192.168.1.200",
       "> 00:0c:22:83:79:a3",
-      "> 255.255.255.192",
       "> 192.168.1.193",
+      "> 255.255.255.192",
       "> 00:0c:22"
     ],
     "dndPairs": {
@@ -10979,12 +10979,12 @@ const allQuestions = [
     "answer": "copper:\n- transmits data in the form of electronic signals\n- supplies conduit for PoE implementations\n\nmulti-mode fiber:\n- transmits signals using pulses of light\n- used for high-throughput over short distances",
     "explanation": "・銅線（Copper / UTP）ケーブル：データを「電気信号（electronic signals）」として伝送し、データだけでなくIP電話やAPを駆動するための「PoE（Power over Ethernet）の電力供給経路」としても機能します。\n・マルチモード光ファイバー：データを「光のパルス（pulses of light）」として伝送し、データセンター内など比較的「短距離（数100m程度まで）」での超高速・高スループット通信に使用されます。",
     "dndTargets": [
-      "",
-      "mode fiber:",
-      "transmits data in the form of electronic signals",
-      "used for high-throughput over short distances",
       "supplies conduit for PoE implementations",
-      "transmits signals using pulses of light"
+      "",
+      "transmits data in the form of electronic signals",
+      "transmits signals using pulses of light",
+      "mode fiber:",
+      "used for high-throughput over short distances"
     ],
     "dndPairs": {
       "copper": "",
@@ -11052,15 +11052,15 @@ const allQuestions = [
     "answer": "Authentication:\n- It verifies the user before granting access to the device.\n- It leverages a RADIUS server to grant user access to a reverse Telnet session.\n\nAuthorization:\n- It restricts the CLI commands that a user is able to perform.\n- It enables the device to allow user- or group-based access.\n\nAccounting:\n- It records the amount of time for which a user accesses the network on a remote server.\n- It uses TACACS+ to log the configuration commands entered by a network administrator.",
     "explanation": "NO.577の再出題です。Authentication（認証）はユーザーの身元確認とログイン許可。Authorization（認可）はログイン後のコマンド制限やアクセス権の付与。Accounting（アカウンティング）はリソース使用時間の記録や管理者が実行した構成変更コマンドの監査ログ取得を担当します。",
     "dndTargets": [
+      "It enables the device to allow user- or group-based access.",
+      "It uses TACACS+ to log the configuration commands entered by a network administrator.",
       "",
       "It verifies the user before granting access to the device.",
       "",
-      "It leverages a RADIUS server to grant user access to a reverse Telnet session.",
       "It restricts the CLI commands that a user is able to perform.",
       "",
-      "It uses TACACS+ to log the configuration commands entered by a network administrator.",
       "It records the amount of time for which a user accesses the network on a remote server.",
-      "It enables the device to allow user- or group-based access."
+      "It leverages a RADIUS server to grant user access to a reverse Telnet session."
     ],
     "dndPairs": {
       "Authentication": "",
@@ -11112,13 +11112,13 @@ const allQuestions = [
     "explanation": "インフラストラクチャをコードとして管理する主要な自動化ツールの特徴です。\n・Ansible: エージェントレスであり、SSHを使用してデバイスと通信します。設定ファイル（Playbook）の記述にはシンプルで読みやすいYAMLを使用します。\n・Chef: クライアント・サーバー型であり、設定手順（Cookbook/Recipe）はRuby言語で記述されます。Push jobsなどにTCP 10002等を使用します。\n・Puppet: クライアント・サーバー型であり、設定は独自の宣言型言語を用いた「マニフェスト（Manifest）」ファイルに保存されます。通信にはHTTPSベースのTCP 8140を使用します。",
     "dndTargets": [
       "",
-      "fundamental configuration elements are stored in a manifest",
+      "uses Ruby for fundamental configuration elements",
+      "uses TCP 8140 for communication",
+      "uses TCP port 10002 for configuration push jobs",
       "uses YAML for fundamental configuration elements",
       "uses SSH for remote device communication",
+      "fundamental configuration elements are stored in a manifest",
       "",
-      "uses TCP port 10002 for configuration push jobs",
-      "uses TCP 8140 for communication",
-      "uses Ruby for fundamental configuration elements",
       ""
     ],
     "dndPairs": {
@@ -11470,10 +11470,10 @@ const allQuestions = [
     "answer": "Global Unicast -> 2000:d17d:ba4a:09c4:ec2d:64c2:edb0:1\nLink-Local Unicast -> fe80:aa0f:3a8c:f04e:96ae:e7d5:1f2e:7\nUnique Local -> fc00:98b2:3fc8:227c:ab58:11f8:2663:3\nMulticast -> ff00:0a21:c015:4a5b:48ff:0a17:a2fc:12",
     "explanation": "NO.047等の再出題です。IPv6アドレスのプレフィックスによる分類です。\n・`2000::/3`：インターネット上でルーティングされるグローバルユニキャストアドレス。\n・`fe80::/10`：同一リンク内でのみ有効なリンクローカルアドレス。\n・`fc00::/7` (fd等含む)：プライベートなユニークローカルアドレス（ULA）。\n・`ff00::/8`：マルチキャストアドレス。",
     "dndTargets": [
-      "> 2000:d17d:ba4a:09c4:ec2d:64c2:edb0:1",
-      "> ff00:0a21:c015:4a5b:48ff:0a17:a2fc:12",
       "Local Unicast -> fe80:aa0f:3a8c:f04e:96ae:e7d5:1f2e:7",
-      "> fc00:98b2:3fc8:227c:ab58:11f8:2663:3"
+      "> ff00:0a21:c015:4a5b:48ff:0a17:a2fc:12",
+      "> fc00:98b2:3fc8:227c:ab58:11f8:2663:3",
+      "> 2000:d17d:ba4a:09c4:ec2d:64c2:edb0:1"
     ],
     "dndPairs": {
       "Global Unicast": "> 2000:d17d:ba4a:09c4:ec2d:64c2:edb0:1",
@@ -11623,11 +11623,11 @@ const allQuestions = [
     "answer": "Ansible features:\n- operates without agents\n- executes modules via SSH by default\n- uses the YAML language\n- pushes configurations to the client",
     "explanation": "Ansibleの特徴です。Ansibleは管理対象ノードに専用ソフトウェアをインストールしない「エージェントレス（operates without agents）」であり、デフォルトで標準の「SSH」プロトコルを使用して通信し、モジュールを実行します。構成の記述には人間が読みやすい「YAML」言語を使用し、サーバーからクライアントへ設定を能動的に送信する「Push（プッシュ）」モデルを採用しています。（Pullモデルやエージェントを使用するのはPuppetやChefなどです）",
     "dndTargets": [
-      "operates without agents",
       "",
-      "executes modules via SSH by default",
+      "operates without agents",
+      "uses the YAML language",
       "pushes configurations to the client",
-      "uses the YAML language"
+      "executes modules via SSH by default"
     ],
     "dndPairs": {
       "Ansible features": "",
@@ -11724,14 +11724,14 @@ const allQuestions = [
     "answer": "TCP:\n- guarantees packet delivery\n- uses a 32-bit sequence number\n- provides support for retransmission of lost packets\n\nUDP:\n- ideal for voice traffic\n- offers minimal overhead within a packet\n- requires less computer resources",
     "explanation": "TCPは信頼性が高く、32ビットのシーケンス番号を使用してパケットの順序を保証し、失われたパケットの再送（retransmission）をサポートすることで確実なパケット配信を保証します。UDPは信頼性はありませんが、パケットのオーバーヘッドが最小限（8バイトヘッダ）であり、コンピュータのリソース消費が少ないため、遅延に敏感な音声（Voice）やビデオトラフィックに最適です。",
     "dndTargets": [
-      "",
-      "guarantees packet delivery",
-      "offers minimal overhead within a packet",
-      "ideal for voice traffic",
-      "requires less computer resources",
-      "uses a 32-bit sequence number",
       "provides support for retransmission of lost packets",
-      ""
+      "uses a 32-bit sequence number",
+      "guarantees packet delivery",
+      "ideal for voice traffic",
+      "",
+      "",
+      "requires less computer resources",
+      "offers minimal overhead within a packet"
     ],
     "dndPairs": {
       "TCP": "",
@@ -11781,11 +11781,11 @@ const allQuestions = [
     "explanation": "グローバルユニキャストアドレスはインターネット上でルーティングされ、1対1の通信に使用されます。ユニークローカルアドレス（ULA: FC00::/7）はIPv4のプライベートアドレスに相当し（counterpart）、ランダムに生成されるグローバルIDを含むため、将来企業同士が合併（combine）した際にもアドレスの競合（conflicts）が発生しにくい設計になっています。",
     "dndTargets": [
       "",
-      "",
-      "allows sites to be combined without address conflicts",
-      "is a counterpart of private IPv4 addresses",
       "provides for one-to-one communication",
-      "is publicly routable in the same way as IPv4 addresses"
+      "allows sites to be combined without address conflicts",
+      "is publicly routable in the same way as IPv4 addresses",
+      "",
+      "is a counterpart of private IPv4 addresses"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -11874,15 +11874,15 @@ const allQuestions = [
     "answer": "Anycast:\n- provides one-to-many communications (※公式画像に基づくマッピングですが技術的には誤り)\n- used exclusively by a non-host device\n\nMulticast:\n- assigned to more than one interface (※これもAnycastの特徴と混同)\n- derived from the FF00::/8 address range\n\nUnicast:\n- identifies an interface on an IPv6 device\n- includes link-local and loopback addresses",
     "explanation": "※試験問題の解答画像には重大な技術的誤りが含まれています。\n本来の定義：\n・Anycast（エニーキャスト）：複数のルーターインターフェースに同じIPを割り当て（assigned to more than one interface）、最も近い1つに届く。通常ホストには使わない（used exclusively by a non-host device）。\n・Multicast（マルチキャスト）：1対多の通信（provides one-to-many communications）、FF00::/8の範囲。\nしかし、ソースの解答画像ではAnycastに「1対多」が、Multicastに「複数インターフェースに割り当て」がマッピングされています。試験本番ではこのバグマッピングパターンに注意してください。",
     "dndTargets": [
-      "derived from the FF00::/8 address range",
-      "assigned to more than one interface (※これもAnycastの特徴と混同)",
       "",
       "provides one-to-many communications (※公式画像に基づくマッピングですが技術的には誤り)",
+      "includes link-local and loopback addresses",
+      "assigned to more than one interface (※これもAnycastの特徴と混同)",
       "",
       "identifies an interface on an IPv6 device",
+      "derived from the FF00::/8 address range",
       "",
-      "used exclusively by a non-host device",
-      "includes link-local and loopback addresses"
+      "used exclusively by a non-host device"
     ],
     "dndPairs": {
       "Anycast": "",
@@ -11922,12 +11922,12 @@ const allQuestions = [
     "answer": "1 -> An endpoint submits a request for the IP address of a domain name.\n2 -> The DNS submits a request to the domain DNS server.\n3 -> The DNS submits a request to a root DNS server.\n4 -> The DNS receives a reply from the domain DNS server.\n5 -> The DNS responds to the endpoint.\n(※公式画像に基づく。ステップ2と3の順序が技術的な一般的な再帰問い合わせの順序（Rootが先）と逆になっていますが画像に準拠します)",
     "explanation": "NO.328の再出題です。DNSの解決プロセスです。まずPC（エンドポイント）がローカルのDNSサーバー（リゾルバ）にクエリを投げます（1）。DNSサーバーが権威サーバーやルートサーバーに問い合わせを行い（2, 3）、権威サーバーからの応答を受け取り（4）、最終的なIPアドレスをPCに返します（5）。",
     "dndTargets": [
-      "> The DNS submits a request to the domain DNS server.",
+      "(※公式画像に基づく。ステップ2と3の順序が技術的な一般的な再帰問い合わせの順序（Rootが先）と逆になっていますが画像に準拠します)",
       "> The DNS receives a reply from the domain DNS server.",
       "> An endpoint submits a request for the IP address of a domain name.",
-      "(※公式画像に基づく。ステップ2と3の順序が技術的な一般的な再帰問い合わせの順序（Rootが先）と逆になっていますが画像に準拠します)",
-      "> The DNS submits a request to a root DNS server.",
-      "> The DNS responds to the endpoint."
+      "> The DNS responds to the endpoint.",
+      "> The DNS submits a request to the domain DNS server.",
+      "> The DNS submits a request to a root DNS server."
     ],
     "dndPairs": {
       "1": "> An endpoint submits a request for the IP address of a domain name.",
@@ -12071,9 +12071,9 @@ const allQuestions = [
     "explanation": "SNMPアーキテクチャの構成要素です。\n・MIB (Management Information Base)：デバイスのCPU使用率やインターフェースの状態など、監視可能な変数が格納された階層型のデータベースです。\n・SNMP Agent：ルーターなどのデバイス上で稼働し、マネージャーからの要求（Get/Set）に応答します。\n・SNMP Manager：監視サーバー（NMS）上で稼働し、情報を収集・一元管理します。\n・SNMP Trap：障害発生時などに、エージェントからマネージャーへ自発的（非要請）に送信される警告メッセージです。",
     "dndTargets": [
       "> responds to status requests and requests for information about a device",
-      "> collection of variables that can be monitored",
       "> resides on an NMS (Network Management System)",
-      "> unsolicited message"
+      "> unsolicited message",
+      "> collection of variables that can be monitored"
     ],
     "dndPairs": {
       "MIB": "> collection of variables that can be monitored",
@@ -12150,12 +12150,12 @@ const allQuestions = [
     "answer": "Global Unicast Address:\n- enables aggregation of routing prefixes\n- is routable and reachable via the Internet\n\nMulticast:\n- provides one-to-many communications\n- has a unicast source sent to a group",
     "explanation": "NO.084、100、461の再出題です。グローバルユニキャストアドレスはインターネット上でルーティング可能であり、ルーティングテーブルを縮小するための「プレフィックスの集約（Route Aggregation/Summarization）」を可能にする階層構造を持ちます。マルチキャストアドレスは、送信元（ユニキャスト）から複数の受信者（グループ）へ同時にパケットを配信する1対多の通信を提供します。",
     "dndTargets": [
+      "",
+      "",
       "enables aggregation of routing prefixes",
-      "",
-      "provides one-to-many communications",
+      "is routable and reachable via the Internet",
       "has a unicast source sent to a group",
-      "",
-      "is routable and reachable via the Internet"
+      "provides one-to-many communications"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -12298,10 +12298,10 @@ const allQuestions = [
     "explanation": "NO.622等の再出題です。\n・Unique Local Address（ユニークローカルアドレス: ULA）はインターネットでルーティングされないため、複数組織で同時に使用可能であり、ランダムなグローバルIDを持つため合併時のアドレス競合を防ぎます。\n・Multicast Address（マルチキャストアドレス）は1対多の通信用であり、パケットの宛先としてのみ使用され、送信元IPアドレスとして設定されることは「決してありません（never used as a source address）」。",
     "dndTargets": [
       "",
-      "sends packets to a group address rather than a single address",
-      "",
       "never used as a source address",
       "may be used by multiple organizations at the same time",
+      "sends packets to a group address rather than a single address",
+      "",
       "allows sites to be combined without address conflicts"
     ],
     "dndPairs": {
@@ -12408,11 +12408,11 @@ const allQuestions = [
     "answer": "TCP:\n- requires the client and the server to establish a connection before sending the packet\n- used to reliably share files between devices\n\nUDP:\n- transmitted based on data contained in the packet without the need for a data channel\n- appropriate for streaming operations with minimal latency",
     "explanation": "NO.073等の再出題です。\nTCPの特徴：データ送信前に3ウェイハンドシェイクで「接続を確立」します。確認応答と再送機能を持つため、FTPなどの「信頼性の高いファイル共有」に適しています。\nUDPの特徴：コネクションレスであり、専用のデータチャネルを確立せずにパケットを送信します。オーバーヘッドが小さいため、音声やビデオなどの「最小限の遅延が求められるストリーミング操作」に適しています。",
     "dndTargets": [
+      "",
       "used to reliably share files between devices",
-      "",
       "transmitted based on data contained in the packet without the need for a data channel",
-      "",
       "appropriate for streaming operations with minimal latency",
+      "",
       "requires the client and the server to establish a connection before sending the packet"
     ],
     "dndPairs": {
@@ -12433,12 +12433,12 @@ const allQuestions = [
     "answer": "Link-Local Address:\n- attached to a single subnet\n- configured only once per interface (※公式画像に基づく。通常は自動生成されるが一つだけ存在)\n\nUnique Local Address:\n- addresses with prefix FC00::/7\n- addressing for exclusive use internally without Internet routing",
     "explanation": "IPv6アドレスの特性です。\n・Link-Local Address（FE80::/10）：ルーターを超えて転送されることはなく、「単一のサブネット（リンク）上」でのみ有効です。また、各インターフェースには必ず1つのリンクローカルアドレスが設定（自動構成）されます。\n・Unique Local Address (ULA)：IPv4のプライベートアドレスの対応物であり、組織の「内部でのみ排他的に使用」され、インターネットのグローバルルーティングテーブルには掲載されません。プレフィックスは「FC00::/7」を使用します。",
     "dndTargets": [
-      "addressing for exclusive use internally without Internet routing",
-      "Local Address:",
-      "",
-      "addresses with prefix FC00::/7",
+      "configured only once per interface (※公式画像に基づく。通常は自動生成されるが一つだけ存在)",
       "attached to a single subnet",
-      "configured only once per interface (※公式画像に基づく。通常は自動生成されるが一つだけ存在)"
+      "",
+      "Local Address:",
+      "addresses with prefix FC00::/7",
+      "addressing for exclusive use internally without Internet routing"
     ],
     "dndPairs": {
       "Link": "Local Address:",
@@ -12833,8 +12833,8 @@ const allQuestions = [
     "explanation": "NO.300、594等と同一問題です。\n・Authentication（認証）：誰であるかを証明する（verifies identity）。\n・Authorization（認可）：何へのアクセス権があるかを検証する（verifies access rights）。\n・Accounting（アカウンティング）：何をしたかを追跡・記録する（tracks activity）。\n・CoA（Change of Authorization）：RADIUSサーバー等がアクティブなユーザーセッションの属性を動的に更新する（updates session attributes）。",
     "dndTargets": [
       "> tracks activity",
-      "> updates session attributes",
       "> verifies identity",
+      "> updates session attributes",
       "> verifies access rights"
     ],
     "dndPairs": {
@@ -12856,9 +12856,9 @@ const allQuestions = [
     "answer": "Telnet -> supports clear-text connections to the controller CLI\nSSH -> supports encrypted access to CLI and a secure channel for data transfer\nconsole -> supports physical connections over a serial cable\nHTTPS -> supports secure web access for management of the device",
     "explanation": "管理アクセスのプロトコルと方法の定義です。\n・Telnet：ネットワーク経由でCLIにアクセスしますが、通信は平文（クリアテキスト）で行われます。\n・SSH：ネットワーク経由でCLIにアクセスし、通信全体を暗号化して安全なチャネルを提供します。\n・Console（コンソール）：ネットワークに障害があってもアクセスできるよう、シリアルケーブル等でデバイスに直接物理的に接続する帯域外管理ポートです。\n・HTTPS：ブラウザを使用してデバイスのWeb GUIに安全（暗号化）にアクセスするためのプロトコルです。",
     "dndTargets": [
-      "> supports clear-text connections to the controller CLI",
       "> supports secure web access for management of the device",
       "> supports encrypted access to CLI and a secure channel for data transfer",
+      "> supports clear-text connections to the controller CLI",
       "> supports physical connections over a serial cable"
     ],
     "dndPairs": {
@@ -12883,12 +12883,12 @@ const allQuestions = [
     "answer": "Northbound API Characteristics:\n- communicates between the SDN controller and the application plane\n- supports data sharing between systems\n- supports automation\n- supports REST-based requirements\n(※解答画像における選択肢の抽出)",
     "explanation": "SDNにおける「ノースバウンドAPI（Northbound API）」は、中央のSDNコントローラーと、その上位に位置するビジネスアプリケーションやオーケストレーションツール（アプリケーションプレーン）との間の通信を担います。これにより、外部システムとのデータ共有、ネットワークの自動化、およびRESTfulなWebサービス要求（RESTベース）のサポートが可能になります。（下位のデータプレーンと通信しOpenFlow等を使用するのはサウスバウンドAPIです）",
     "dndTargets": [
-      "supports automation",
-      "supports REST-based requirements",
-      "",
       "communicates between the SDN controller and the application plane",
+      "",
+      "(※解答画像における選択肢の抽出)",
       "supports data sharing between systems",
-      "(※解答画像における選択肢の抽出)"
+      "supports REST-based requirements",
+      "supports automation"
     ],
     "dndPairs": {
       "Northbound API Characteristics": "",
@@ -13247,10 +13247,10 @@ const allQuestions = [
     "answer": "MIB -> collection of uniquely identifiable objects whose state can be interrogated over SNMP\nmanaged device -> network node controlled by SNMP\nNMS -> system that runs monitoring applications and controls network nodes\nagent -> SNMP component that captures and translates device and network data",
     "explanation": "SNMPアーキテクチャの構成要素です。\n・MIB：デバイスのステータスを表す一意の識別子（OID）を持つ変数の集合体（データベース）です。\n・Managed device（管理対象デバイス）：SNMPエージェントが組み込まれ、NMSによって監視・制御されるルーターやスイッチのことです。\n・NMS（Network Management System）：管理者が操作し、ネットワーク全体を監視および制御するアプリケーションが稼働する中央サーバーです。\n・Agent：管理対象デバイス上で稼働し、デバイスの内部データを収集してSNMP形式に翻訳し、NMSと通信するソフトウェアモジュールです。",
     "dndTargets": [
-      "> SNMP component that captures and translates device and network data",
+      "> collection of uniquely identifiable objects whose state can be interrogated over SNMP",
       "> network node controlled by SNMP",
       "> system that runs monitoring applications and controls network nodes",
-      "> collection of uniquely identifiable objects whose state can be interrogated over SNMP"
+      "> SNMP component that captures and translates device and network data"
     ],
     "dndPairs": {
       "MIB": "> collection of uniquely identifiable objects whose state can be interrogated over SNMP",
@@ -13300,11 +13300,11 @@ const allQuestions = [
     "answer": "Controller-based Networking:\n- This type deploys a consistent configuration across multiple devices.\n- Southbound APIs are used to apply configurations.\n\nTraditional Networking:\n- A distributed control plane is needed.\n- This type requires a distributed management plane.",
     "explanation": "・コントローラーベースのネットワーク（SDN）：Cisco DNA Centerなどのコントローラーを使用して、ネットワーク全体に「一貫した構成（ポリシー）」を同時に展開します。コントローラーからルーターなどのデバイスへ構成をプッシュ・適用するために「サウスバウンドAPI」を使用します。\n・従来のネットワーク：各ネットワーク機器が個別にルーティングの計算や設定の保持を行うため、「分散型コントロールプレーン」および「分散型マネジメントプレーン」を必要とします。",
     "dndTargets": [
-      "Southbound APIs are used to apply configurations.",
-      "This type requires a distributed management plane.",
-      "This type deploys a consistent configuration across multiple devices.",
-      "",
       "based Networking:",
+      "",
+      "This type deploys a consistent configuration across multiple devices.",
+      "This type requires a distributed management plane.",
+      "Southbound APIs are used to apply configurations.",
       "A distributed control plane is needed."
     ],
     "dndPairs": {
@@ -13412,13 +13412,13 @@ const allQuestions = [
     "answer": "Traditional Networking:\n- New devices are configured using the physical infrastructure.\n- This type requires a distributed control plane.\n\nController-Based Networking:\n- This type enables networks to integrate with applications through APIs.\n- This type provisions resources from a centralized location.\n- This type allows better control over how networks work and how networks are configured.",
     "explanation": "SDNと従来のネットワークの比較です。\n・従来のネットワーク（Traditional）：各ルーターが個別に経路を計算する「分散型コントロールプレーン」を持ち、新しい機器の追加時もコンソールケーブル等を使用して「物理インフラごとに」個別に設定を行います。\n・コントローラーベース（SDN）：コントローラーという「中央の場所からリソースを展開（プロビジョニング）」し、APIを介してアプリケーションと「統合」することで、ネットワーク全体の設定と動作を「より良く制御」します。",
     "dndTargets": [
+      "This type provisions resources from a centralized location.",
+      "Based Networking:",
       "This type allows better control over how networks work and how networks are configured.",
       "This type enables networks to integrate with applications through APIs.",
-      "",
-      "This type provisions resources from a centralized location.",
       "New devices are configured using the physical infrastructure.",
       "This type requires a distributed control plane.",
-      "Based Networking:"
+      ""
     ],
     "dndPairs": {
       "Traditional Networking": "",
@@ -14004,11 +14004,11 @@ const allQuestions = [
     "explanation": "NO.760等の再出題です。グローバルユニキャストアドレスはインターネット上でルーティング可能です。ユニークローカルアドレス（ULA）はIPv4のプライベートアドレスに相当（counterpart）し、組織内で自由に使用できますが、インターネットへルーティングされることはありません。",
     "dndTargets": [
       "",
-      "is unable to route on the internet",
+      "is routable and reachable via the Internet",
+      "",
       "enables aggregation of routing prefixes",
       "is a counterpart of private IPv4 addresses",
-      "",
-      "is routable and reachable via the Internet"
+      "is unable to route on the internet"
     ],
     "dndPairs": {
       "Global Unicast Address": "",
@@ -14030,12 +14030,12 @@ const allQuestions = [
     "answer": "must be unique:\n- IP address\n- router ID\n\nmust match:\n- area ID\n- netmask\n- timers",
     "explanation": "OSPFv2ルーターがネイバー関係を確立するための要件です。\n・一意でなければならない（must be unique）：ネットワーク上で重複してはいけないルーター自身の「IPアドレス」と「ルーターID」。\n・一致しなければならない（must match）：リンクの両端で完全に同じ値が設定されていなければならない「エリアID（Area ID）」、「サブネットマスク（netmask）」、「Hello/Deadタイマー（timers）」、および認証パスワード等。",
     "dndTargets": [
+      "netmask",
       "router ID",
+      "timers",
+      "",
       "",
       "area ID",
-      "",
-      "timers",
-      "netmask",
       "IP address"
     ],
     "dndPairs": {
@@ -15323,11 +15323,11 @@ const allQuestions = [
     "answer": "CNAME -> aliases one name to another\nSOA -> associates the domain serial number with its owner\nNS -> correlates a domain with its authoritative name servers\nAAAA -> correlates a host name with an IP address (IPv6)\nPTR -> supports reverse name lookups",
     "explanation": "DNSレコードタイプに関する知識です。\n・AAAA（クワッドA）：ホスト名（FQDN）をIPv6アドレスに解決（マッピング）します。\n・CNAME：あるドメイン名を別のドメイン名のエイリアス（別名）として定義します。\n・NS（Name Server）：特定のドメインを管理する権威DNSサーバーを指定します。\n・PTR（Pointer）：IPアドレスからホスト名を逆引き（reverse lookup）するために使用されます。\n・SOA（Start of Authority）：ドメイン（ゾーン）の管理者情報、シリアル番号、更新間隔などの基本的な管理情報を提供します。",
     "dndTargets": [
-      "> correlates a host name with an IP address (IPv6)",
       "> associates the domain serial number with its owner",
+      "> correlates a host name with an IP address (IPv6)",
       "> aliases one name to another",
-      "> correlates a domain with its authoritative name servers",
-      "> supports reverse name lookups"
+      "> supports reverse name lookups",
+      "> correlates a domain with its authoritative name servers"
     ],
     "dndPairs": {
       "CNAME": "> aliases one name to another",
@@ -15401,11 +15401,11 @@ const allQuestions = [
     "answer": "Global Unicast Address:\n- provides for one-to-one communication\n- is publicly routable in the same way as IPv4 addresses\n\nUnique Local:\n- is a counterpart of private IPv4 addresses\n- allows sites to be combined without address conflicts",
     "explanation": "NO.760、904等の再出題です。グローバルユニキャストアドレス（GUA）は、IPv4のパブリックIPと同様にインターネット上でルーティング可能で、単一のノードへの1対1通信を提供します。ユニークローカルアドレス（ULA）は、IPv4のプライベートIPに相当し、40ビットのランダムなグローバルIDを含むため、組織の合併などでネットワークが結合された際にもIPアドレスの衝突（コンフリクト）を避けることができます。",
     "dndTargets": [
-      "is publicly routable in the same way as IPv4 addresses",
-      "allows sites to be combined without address conflicts",
+      "",
       "provides for one-to-one communication",
+      "allows sites to be combined without address conflicts",
       "",
-      "",
+      "is publicly routable in the same way as IPv4 addresses",
       "is a counterpart of private IPv4 addresses"
     ],
     "dndPairs": {
@@ -15874,13 +15874,13 @@ const allQuestions = [
     "explanation": "R1(Host A側)とR3(Host B側)を結ぶルーティングの設定です。\n・Host Bのネットワークは `10.10.13.0/25` (.0 - .127) と推測されます。R1およびR2からHost Bへ向かうには、この `/25` ネットワーク宛てのルートを、右側の次のルーター（ネクストホップ）へ向けて設定します。\n・Host Aのネットワークは `10.10.14.0/24` と推測されます。R3およびR2からHost Aへ向かうには、この `/24` ネットワーク宛てのルートを、左側の次のルーターへ向けて設定します。\n※出題画像の詳細なIPアドレス構成に依存するドラッグ＆ドロップ問題です。",
     "dndTargets": [
       "",
-      "ip route 10.10.13.0 255.255.255.128 10.10.10.5",
-      "(※解説および公式画像に基づくマッピング)",
-      "",
       "ip route 10.10.14.0 255.255.255.0 10.10.10.2",
-      "ip route 10.10.14.0 255.255.255.0 10.10.10.6",
       "ip route 10.10.13.0 255.255.255.128 10.10.10.5",
-      ""
+      "",
+      "(※解説および公式画像に基づくマッピング)",
+      "ip route 10.10.14.0 255.255.255.0 10.10.10.6",
+      "",
+      "ip route 10.10.13.0 255.255.255.128 10.10.10.5"
     ],
     "dndPairs": {
       "R1": "",
@@ -15956,11 +15956,11 @@ const allQuestions = [
     "answer": "802.11n -> Operates in the 2.4 GHz and 5 GHz bands.\n802.11g -> Operates in the 2.4 GHz band only and supports a maximum data rate of 54 Mbps.\n802.11ac -> Operates in the 5 GHz band only and supports a maximum data rate that can exceed 100 Mbps. (※Gbpsをサポートするが選択肢の表現に準拠)\n802.11b -> Supports a maximum data rate of 11 Mbps.\n802.11a -> Operates in the 5 GHz band only and supports a maximum data rate of 54 Mbps.",
     "explanation": "Wi-Fi規格の特徴です。\n・802.11a：5GHz帯のみを使用し、最大54Mbps。\n・802.11b：2.4GHz帯のみを使用し、最大11Mbps。\n・802.11g：2.4GHz帯のみを使用し、最大54Mbps。\n・802.11n（Wi-Fi 4）：2.4GHzと5GHzの両方を使用可能（最大600Mbps等）。\n・802.11ac（Wi-Fi 5）：5GHz帯のみを使用し、ギガビット超の非常に高速なデータレート（exceed 100Mbps）をサポート。",
     "dndTargets": [
-      "> Operates in the 2.4 GHz band only and supports a maximum data rate of 54 Mbps.",
+      "> Operates in the 5 GHz band only and supports a maximum data rate that can exceed 100 Mbps. (※Gbpsをサポートするが選択肢の表現に準拠)",
       "> Operates in the 2.4 GHz and 5 GHz bands.",
       "> Supports a maximum data rate of 11 Mbps.",
-      "> Operates in the 5 GHz band only and supports a maximum data rate that can exceed 100 Mbps. (※Gbpsをサポートするが選択肢の表現に準拠)",
-      "> Operates in the 5 GHz band only and supports a maximum data rate of 54 Mbps."
+      "> Operates in the 5 GHz band only and supports a maximum data rate of 54 Mbps.",
+      "> Operates in the 2.4 GHz band only and supports a maximum data rate of 54 Mbps."
     ],
     "dndPairs": {
       "802.11n": "> Operates in the 2.4 GHz and 5 GHz bands.",
@@ -16078,12 +16078,12 @@ const allQuestions = [
     "answer": "TCP:\n- used to reliably share files between devices\n- supports reliable data transmission\n\nUDP:\n- appropriate for streaming operations with minimal latency\n- provides best-effort service",
     "explanation": "NO.073、525等と同一問題です。\nTCPの特徴：データ送信前にコネクションを確立し、確認応答を用いて「信頼性の高いデータ転送（reliable data transmission）」を提供するため、ファイルの共有等に適しています。\nUDPの特徴：コネクションレスであり、「ベストエフォート」での転送を行うため信頼性はありませんが、オーバーヘッドがなく「最小限の遅延（minimal latency）」で通信できるため、ストリーミング操作などに適しています。",
     "dndTargets": [
-      "",
       "provides best-effort service",
-      "supports reliable data transmission",
       "appropriate for streaming operations with minimal latency",
       "used to reliably share files between devices",
-      ""
+      "",
+      "",
+      "supports reliable data transmission"
     ],
     "dndPairs": {
       "TCP": "",
@@ -16163,12 +16163,12 @@ const allQuestions = [
     "answer": "Accounting:\n- It limits the services available to a user. (※これはAuthorizationの機能ですが、公式画像ではここにマッピングされています。注意！)\n- It records the duration of each connection.\n\nAuthentication:\n- It grants access to network assets, such as FTP servers. (※これもAuthorizationですが公式画像に基づく)\n- It verifies \"who you are\".",
     "explanation": "※試験対策上の重大な注意：提供されたDumpsの解答画像（NO.541と類似）において、AAA機能の定義マッピングが完全に破綻しています。本来の技術的定義は以下の通りです。\n・Authentication: verifies \"who you are\", performs user validation.\n・Authorization: grants access to assets, limits services.\n・Accounting: records duration, supports reporting.\nしかし、Dumps画像の解答例では意図的に（またはバグとして）誤ったマッピングがされています。試験システム上で同様のドラッグ＆ドロップが出た場合、この不合理な配置パターンを記憶しておく必要があります。",
     "dndTargets": [
-      "It limits the services available to a user. (※これはAuthorizationの機能ですが、公式画像ではここにマッピングされています。注意！)",
       "",
+      "It records the duration of each connection.",
       "It verifies \"who you are\".",
       "",
       "It grants access to network assets, such as FTP servers. (※これもAuthorizationですが公式画像に基づく)",
-      "It records the duration of each connection."
+      "It limits the services available to a user. (※これはAuthorizationの機能ですが、公式画像ではここにマッピングされています。注意！)"
     ],
     "dndPairs": {
       "Accounting": "",
@@ -16243,10 +16243,10 @@ const allQuestions = [
     "explanation": "※試験対策上の極めて重大な注意：提供されたDumpsの解答画像におけるドラッグ＆ドロップのマッピングは、Ciscoのワイヤレス技術の定義と「完全に矛盾・崩壊」しています。\n技術的な正解：\n・Local：通常のクライアントサービス提供モード。\n・FlexConnect：WAN越しの拠点でローカルスイッチングを提供するモード。\n・Monitor：クライアントサービスを提供せず、全チャネルをスキャンしてRogue AP等を検出する専用モード。\n・Sniffer：パケットキャプチャ専用モード。\n・Bridge/Mesh：有線LANのない場所でAP同士を無線バックホールで繋ぐモード。\n試験システム上の採点がこの崩壊した画像に基づいている可能性があるため、不条理な組み合わせとして警戒してください。",
     "dndTargets": [
       "> preferred for connecting access points in a mesh environment (※Meshモードの説明です。バグ)",
-      "> allows the access point to communicate with the WLC over a WAN link (※通常はFlexConnectの説明ですが公式画像に依存。BridgeはPoint-to-Pointリンク等に使用)",
       "> allows for packet captures of wireless traffic (※通常はSnifferモードの説明です。バグ)",
       "> rogue detector mode (※Rogue Detectorは専用モードですが、Monitorに近いです)",
-      "> transmits normally on one channel and monitors other channels for noise and interference (※通常はMonitorモードの説明です)"
+      "> transmits normally on one channel and monitors other channels for noise and interference (※通常はMonitorモードの説明です)",
+      "> allows the access point to communicate with the WLC over a WAN link (※通常はFlexConnectの説明ですが公式画像に依存。BridgeはPoint-to-Pointリンク等に使用)"
     ],
     "dndPairs": {
       "bridge mode": "> allows the access point to communicate with the WLC over a WAN link (※通常はFlexConnectの説明ですが公式画像に依存。BridgeはPoint-to-Pointリンク等に使用)",
@@ -16337,11 +16337,11 @@ const allQuestions = [
     "explanation": "各CIDRプレフィックスにおけるサブネットの境界と利用可能なホスト範囲の計算です。\n・/29 (ブロックサイズ8): 144はネットワークアドレス。範囲は 145 ～ 150。\n・/25 (ブロックサイズ128): 128がネットワーク。範囲は 129 ～ 254。\n・/23 (第3オクテットブロックサイズ2): 228はネットワーク。範囲は 228.1 ～ 229.254。\n・/21 (第3オクテットブロックサイズ8): 224がネットワーク。範囲は 224.1 ～ 231.254。\n・/18 (第3オクテットブロックサイズ64): 192がネットワーク。範囲は 192.1 ～ 255.254。",
     "dndTargets": [
       "> 172.28.192.1 - 172.28.255.254",
-      "> 172.28.224.1 - 172.28.231.254",
-      "> 172.28.228.145 - 172.28.228.150",
       "> 172.28.228.1 - 172.28.229.254",
-      "> 172.28.228.129 - 172.28.228.254",
-      "(※プレフィックス長からホストIPの範囲を計算する問題です)"
+      "> 172.28.228.145 - 172.28.228.150",
+      "> 172.28.224.1 - 172.28.231.254",
+      "(※プレフィックス長からホストIPの範囲を計算する問題です)",
+      "> 172.28.228.129 - 172.28.228.254"
     ],
     "dndPairs": {
       "172.28.228.144/18": "> 172.28.192.1 - 172.28.255.254",
@@ -16611,11 +16611,11 @@ const allQuestions = [
     "answer": "static -> 192.168.1.0/24 (※表のSに対応)\nEIGRP -> 172.16.2.0/24 (※表のDに対応)\nOSPF -> 192.168.2.0/24 (※表のOに対応)\nRIP -> 207.165.200.244/30 (※表のRは存在しないが文脈に依存)\n(※展示画像のルーティングプロトコルコード S, D, O, R などを左端の文字から読み取ります)",
     "explanation": "ルーティングテーブルのコード解読問題です。\n・`S` は Static（スタティックルート）を示します。\n・`D` は EIGRP（Dualアルゴリズム）を示します。\n・`O` は OSPF を示します。\n・`R` は RIP を示します。\n・`C` は Directly Connected（直接接続）を示します。\n展示されたテーブルの各プレフィックス行の先頭にあるアルファベット文字に基づいてマッチングを行います。",
     "dndTargets": [
-      "(※展示画像のルーティングプロトコルコード S, D, O, R などを左端の文字から読み取ります)",
       "> 192.168.1.0/24 (※表のSに対応)",
-      "> 207.165.200.244/30 (※表のRは存在しないが文脈に依存)",
       "> 172.16.2.0/24 (※表のDに対応)",
-      "> 192.168.2.0/24 (※表のOに対応)"
+      "> 207.165.200.244/30 (※表のRは存在しないが文脈に依存)",
+      "> 192.168.2.0/24 (※表のOに対応)",
+      "(※展示画像のルーティングプロトコルコード S, D, O, R などを左端の文字から読み取ります)"
     ],
     "dndPairs": {
       "static": "> 192.168.1.0/24 (※表のSに対応)",
@@ -16737,14 +16737,14 @@ const allQuestions = [
     "answer": "Cisco DNA Center:\n- supports centralized software management\n- orchestrates background device configuration\n- supports open APIs\n\nTraditional:\n- provides greater flexibility for custom and non-standard configurations\n- uses individual software management\n- relies on per-device management",
     "explanation": "管理方式の違いです。\n・Cisco DNA Center（SDN）：ネットワーク全体の中央集中型ソフトウェア管理を提供し、オープンAPI（REST等）をサポートし、バックグラウンドでのデバイス構成を自動的（オーケストレーション）に処理します。\n・従来のネットワーク（Traditional）：各デバイスに個別にログインして管理・ソフトウェア更新を行う必要があり手間がかかりますが、個別の要件に合わせた非常に柔軟で非標準的なカスタム構成（細かなCLIチューニング）を手動で行うことができます。",
     "dndTargets": [
+      "supports centralized software management",
+      "orchestrates background device configuration",
+      "",
+      "uses individual software management",
       "supports open APIs",
       "",
-      "relies on per-device management",
       "provides greater flexibility for custom and non-standard configurations",
-      "",
-      "supports centralized software management",
-      "uses individual software management",
-      "orchestrates background device configuration"
+      "relies on per-device management"
     ],
     "dndPairs": {
       "Cisco DNA Center": "",
@@ -17075,10 +17075,10 @@ const allQuestions = [
     "dndTargets": [
       "",
       "Southbound APIs are used to apply configurations.",
-      "Based Networking:",
-      "This type deploys a consistent configuration across multiple devices.",
       "A distributed control plane is needed.",
-      "This type requires a distributed management plane."
+      "Based Networking:",
+      "This type requires a distributed management plane.",
+      "This type deploys a consistent configuration across multiple devices."
     ],
     "dndPairs": {
       "Controller": "Based Networking:",
@@ -17098,12 +17098,12 @@ const allQuestions = [
     "answer": "Layer 2 Security Mechanisms:\n- 802.1X\n- WPA+WPA2\n\nLayer 3 Security Mechanisms (for WLAN):\n- web policy\n- Passthrough",
     "explanation": "Cisco WLCのWLANセキュリティ設定における分類です。\n・レイヤ2セキュリティ：無線LANの接続（アソシエーション）の確立時に行われる暗号化と認証です。WPA/WPA2（PSK）や、802.1X（EAP認証）などが含まれます。\n・レイヤ3セキュリティ：デバイスがIPアドレスを取得した後に、Webブラウザ等を通じて行われるアクセス制御です。キャプティブポータルを使用したWeb認証（Web policy）や、認証なしで利用規約に同意させるWeb Passthroughが含まれます。",
     "dndTargets": [
-      "web policy",
       "",
       "802.1X",
+      "WPA+WPA2",
+      "web policy",
       "Passthrough",
-      "",
-      "WPA+WPA2"
+      ""
     ],
     "dndPairs": {
       "Layer 2 Security Mechanisms": "",
@@ -17141,12 +17141,12 @@ const allQuestions = [
     "dndTargets": [
       "",
       "supports open APIs",
+      "uses individual software management",
       "provides greater flexibility for custom and non-standard configurations",
-      "",
       "supports centralized software management",
       "orchestrates background device configuration",
       "relies on per-device management",
-      "uses individual software management"
+      ""
     ],
     "dndPairs": {
       "Cisco DNA Center": "",
@@ -17278,9 +17278,9 @@ const allQuestions = [
     "answer": "Monitor -> It provides air-quality data and interference detection across all enabled channels. / It enables enhanced RFID-tag location tracking.\nSensor -> It supports analytics for wireless performance testing. / It supports real-time Wi-Fi client troubleshooting when network engineers are offsite.\nSniffer -> It supports software that analyzes wireless frames on a remote device. / It captures and forwards packets on a specific wireless channel.",
     "explanation": "※試験対策上の重大な注意：Ciscoの公式ドキュメントにおけるAPモードの定義です。\n・Monitor mode：クライアントへのサービスを提供せず、不正APの検出（wIDS/wIPS）、RFIDトラッキング、およびチャネル全体の電波品質（Air-quality）のスキャンに特化します。\n・Sensor mode：Cisco Aironet Active Sensorなどに用いられ、リモートのエンジニアが現場にいなくてもパフォーマンスのテストやクライアントのトラブルシューティングを行えるようにします。\n・Sniffer mode：特定のチャネルでパケットをキャプチャし、Wiresharkなどのリモートアナライザツールにフレームを転送します。\n（※Dumps画像によってはこれらがシャッフルされた誤った解答画像が存在する場合がありますが、この論理定義が正解です）",
     "dndTargets": [
+      "> It provides air-quality data and interference detection across all enabled channels. / It enables enhanced RFID-tag location tracking.",
       "> It supports analytics for wireless performance testing. / It supports real-time Wi-Fi client troubleshooting when network engineers are offsite.",
-      "> It supports software that analyzes wireless frames on a remote device. / It captures and forwards packets on a specific wireless channel.",
-      "> It provides air-quality data and interference detection across all enabled channels. / It enables enhanced RFID-tag location tracking."
+      "> It supports software that analyzes wireless frames on a remote device. / It captures and forwards packets on a specific wireless channel."
     ],
     "dndPairs": {
       "Monitor": "> It provides air-quality data and interference detection across all enabled channels. / It enables enhanced RFID-tag location tracking.",
@@ -17528,10 +17528,10 @@ const allQuestions = [
     "explanation": "NO.778（※画像の内容による）の関連問題です。Cisco IOSにおけるSNMPの検証コマンドの役割です。\n・`show snmp host`：トラップを送信する宛先ホスト（NMS）のIPやUDPポートを表示します。\n・`show snmp engineID`：SNMPv3の認証や暗号化に不可欠な一意のエンジンIDを表示します。\n・`show snmp group`：SNMPv3で設定されたグループごとの読み書き権限やセキュリティモデルを表示します。\n・`show snmp community`：設定されているSNMPv1/v2cのコミュニティストリングと関連付けられたACL等を表示します。",
     "dndTargets": [
       "> displays information about the SNMP recipient (トラップの送信先マネージャー情報)",
-      "> displays the IP address of the remote SNMP device (コミュニティ文字列とアクセス制御情報)",
-      "> displays the SNMP server serial number (デバイスのシリアル番号/シャーシID)",
       "> displays the SNMP security model in use (SNMPv3のローカル/リモートエンジンのID)",
-      "> displays the SNMP access string (SNMPv3グループのアクセス権)"
+      "> displays the SNMP server serial number (デバイスのシリアル番号/シャーシID)",
+      "> displays the SNMP access string (SNMPv3グループのアクセス権)",
+      "> displays the IP address of the remote SNMP device (コミュニティ文字列とアクセス制御情報)"
     ],
     "dndPairs": {
       "show snmp host": "> displays information about the SNMP recipient (トラップの送信先マネージャー情報)",
@@ -17571,10 +17571,10 @@ const allQuestions = [
     "explanation": "NO.293と同一画像・同一問題です。`ipconfig /all` の「Wireless LAN adapter Wi-Fi:」セクションから値を抽出します。\n・MAC addressは `Physical Address` の値（B8-76-3F-7C-57-DF）です。\n・host IP addressは `IPv4 Address` の値（192.168.1.20）です。\n・default gatewayは `Default Gateway` の値（192.168.1.1）です。\n・サブネットマスクが `255.255.255.0`（/24）であるため、ブロードキャストは `.255`、最後に割り当て可能なIPは `.254` となります。",
     "dndTargets": [
       "> 192.168.1.254",
-      "> 192.168.1.20",
       "> 192.168.1.255",
-      "> B8-76-3F-7C-57-DF (※Wireless LAN adapter Wi-Fi の Physical Address)",
-      "> 192.168.1.1"
+      "> 192.168.1.1",
+      "> 192.168.1.20",
+      "> B8-76-3F-7C-57-DF (※Wireless LAN adapter Wi-Fi の Physical Address)"
     ],
     "dndPairs": {
       "broadcast address": "> 192.168.1.255",
@@ -17730,10 +17730,10 @@ const allQuestions = [
     "answer": "Configure VACL -> 802.1q double tagging\nConfigure dynamic ARP inspection -> ARP spoofing\nConfigure root guard -> unwanted superior BPDUs\nConfigure BPDU guard -> unwanted BPDUs on PortFast-enabled interfaces",
     "explanation": "NO.017等の再出題です。VLANホッピング攻撃（802.1Qダブルタギング）はVLANアクセスコントロールリスト(VACL)等で緩和します。ARPスプーフィング（キャッシュポイズニング）は、DHCPスヌーピングデータベースを参照するダイナミックARPインスペクション(DAI)で防ぎます。予期せぬ優れたBPDUによるルートブリッジの乗っ取りはルートガードで防ぎます。エンドユーザーのポートにスイッチが接続されること（BPDUの受信）はBPDUガードで防ぎます。",
     "dndTargets": [
+      "> ARP spoofing",
       "> 802.1q double tagging",
-      "> unwanted BPDUs on PortFast-enabled interfaces",
       "> unwanted superior BPDUs",
-      "> ARP spoofing"
+      "> unwanted BPDUs on PortFast-enabled interfaces"
     ],
     "dndPairs": {
       "Configure VACL": "> 802.1q double tagging",
@@ -17952,14 +17952,14 @@ const allQuestions = [
     "answer": "Cisco DNA Center Device Management:\n- monitors the cloud for software updates\n- uses CLI templates to apply a consistent configuration to multiple devices at an individual location\n- uses NetFlow to analyze potential security threats throughout the network and take appropriate action on that traffic\n\nTraditional Device Management:\n- manages device configurations on a per-device basis\n- security is managed near the perimeter of the network with firewalls, VPNs, and IPS\n- implements changes via an SSH terminal",
     "explanation": "ネットワーク管理アプローチの比較です。\n・SDN（Cisco DNA Center）：クラウド連携によるソフトウェアの一元管理、テンプレートによる複数デバイスへの一貫した自動設定の適用、およびNetFlowやAIを活用したネットワーク全体の包括的な脅威分析（アシュアランス）を提供します。\n・従来型（Traditional）：管理者がSSHターミナルを使用してデバイス1台ずつ（per-device）手動で設定を行い、セキュリティはネットワーク全体ではなく境界（ペリメーター）にあるファイアウォール等に強く依存します。",
     "dndTargets": [
-      "uses CLI templates to apply a consistent configuration to multiple devices at an individual location",
-      "implements changes via an SSH terminal",
-      "",
-      "manages device configurations on a per-device basis",
-      "monitors the cloud for software updates",
-      "security is managed near the perimeter of the network with firewalls, VPNs, and IPS",
       "uses NetFlow to analyze potential security threats throughout the network and take appropriate action on that traffic",
-      ""
+      "implements changes via an SSH terminal",
+      "manages device configurations on a per-device basis",
+      "uses CLI templates to apply a consistent configuration to multiple devices at an individual location",
+      "monitors the cloud for software updates",
+      "",
+      "",
+      "security is managed near the perimeter of the network with firewalls, VPNs, and IPS"
     ],
     "dndPairs": {
       "Cisco DNA Center Device Management": "",
@@ -17995,14 +17995,14 @@ const allQuestions = [
     "answer": "TCP:\n- sends transmissions in sequence\n- transmits packets as a stream\n- uses a lower transmission rate to ensure reliability\n\nUDP:\n- transmissions include an 8-byte header\n- transmits packets individually\n- uses a higher transmission rate to support latency-sensitive applications",
     "explanation": "NO.411の再出題です。TCP（Transmission Control Protocol）は信頼性を確保するため、確認応答を待ちながらデータをストリームとして「順番通り（in sequence）」に送信します。UDP（User Datagram Protocol）は「8バイトの軽量なヘッダー」のみを持ち、パケットを独立したデータグラムとして個別に送信するため高速であり、音声などの「遅延に敏感な（latency-sensitive）」アプリケーションに適しています。",
     "dndTargets": [
-      "uses a lower transmission rate to ensure reliability",
-      "sends transmissions in sequence",
       "uses a higher transmission rate to support latency-sensitive applications",
+      "sends transmissions in sequence",
+      "transmits packets as a stream",
       "",
       "transmissions include an 8-byte header",
-      "transmits packets individually",
+      "uses a lower transmission rate to ensure reliability",
       "",
-      "transmits packets as a stream"
+      "transmits packets individually"
     ],
     "dndPairs": {
       "TCP": "",
@@ -18288,13 +18288,13 @@ const allQuestions = [
     "answer": "Controller-Based Networking:\n- focused on network\n- uses white list security model\n- user input is a policy\n\nTraditional Networking:\n- focused on devices\n- uses black list security model\n- user input is a configuration",
     "explanation": "NO.494と同一問題です。\n・コントローラーベース（SDN）：個別の機器ではなく「ネットワーク全体」に焦点を当てます。管理者はCLIコマンドではなくビジネス「ポリシー」を入力し、デフォルトですべて拒否し必要なものだけを許可する「ホワイトリスト（許可リスト）」セキュリティモデルを使用します。\n・従来型ネットワーク：個別の「デバイス」に焦点を当てます。管理者は各機器に「構成（コンフィグ）」を入力し、デフォルトで許可し不要なものをACLで拒否する「ブラックリスト（拒否リスト）」セキュリティモデルを使用します。",
     "dndTargets": [
-      "user input is a configuration",
-      "",
       "user input is a policy",
-      "focused on devices",
       "uses white list security model",
+      "focused on devices",
       "uses black list security model",
+      "",
       "focused on network",
+      "user input is a configuration",
       "Based Networking:"
     ],
     "dndPairs": {
@@ -18371,12 +18371,12 @@ const allQuestions = [
     "answer": "Unique Local:\n- may be used by multiple organizations at the same time\n- allows sites to be combined without address conflicts\n\nMulticast:\n- never used as a source address\n- sends packets to a group address rather than a single address",
     "explanation": "NO.792と同一問題です。\n・ユニークローカルアドレス（ULA）は、インターネットにルーティングされないプライベートなIPv6アドレスであり、組織間で重複して使用可能です。また、ランダムなグローバルIDによりサイト統合時のアドレス衝突を防ぎます。\n・マルチキャストアドレスは1対多の通信用であり、特定のノードを示すものではないため、パケットの「送信元（Source）」アドレスとして使用されることは決してありません。",
     "dndTargets": [
-      "may be used by multiple organizations at the same time",
       "sends packets to a group address rather than a single address",
       "",
+      "may be used by multiple organizations at the same time",
+      "never used as a source address",
       "allows sites to be combined without address conflicts",
-      "",
-      "never used as a source address"
+      ""
     ],
     "dndPairs": {
       "Unique Local": "",
@@ -18412,10 +18412,10 @@ const allQuestions = [
     "answer": "first -> enable\nsecond -> configure terminal\nthird -> enable secret shf!@4fs\nfourth -> line vty 0 4 (または exit 等。公式画像に準拠)",
     "explanation": "NO.641と同一問題です。特権モードのパスワード（enable secret）を安全に設定する際の手順です。\n1. `enable`：ユーザーEXECモードから特権EXECモードに移行します。\n2. `configure terminal`：グローバルコンフィギュレーションモードに入ります。\n3. `enable secret [パスワード]`：特権モードへアクセスするための強力な暗号化パスワードを設定します。",
     "dndTargets": [
+      "> enable",
       "> configure terminal",
       "> line vty 0 4 (または exit 等。公式画像に準拠)",
-      "> enable secret shf!@4fs",
-      "> enable"
+      "> enable secret shf!@4fs"
     ],
     "dndPairs": {
       "first": "> enable",
@@ -18607,8 +18607,8 @@ const allQuestions = [
     "answer": "guest operating system -> An operating system instance that is decoupled from the server hardware.\nmultithreading -> Each core can run more than one process simultaneously.\nhypervisor -> Runs on a physical server, manages, and allocates the physical resources.\nhost operating system -> The software that manages the basic functions of the physical hardware.\nvirtual machine -> The software that manages the basic functions of the virtual machine. (※画像における誤った記述に注意)",
     "explanation": "仮想化の基本用語の定義です。\n・ゲストOS：サーバーの物理ハードウェアから切り離され、VM内で実行されるOSインスタンス。\n・ホストOS：物理ハードウェアに直接インストールされ、基本機能を管理するOS（Type 2ハイパーバイザーの基盤）。\n・ハイパーバイザー：物理リソースを管理し、複数のVMに割り当てるソフトウェア層。\n・マルチスレッディング：1つのCPUコアで複数のプロセス/スレッドを同時に実行する技術。",
     "dndTargets": [
-      "> An operating system instance that is decoupled from the server hardware.",
       "> The software that manages the basic functions of the virtual machine. (※画像における誤った記述に注意)",
+      "> An operating system instance that is decoupled from the server hardware.",
       "> Each core can run more than one process simultaneously.",
       "> Runs on a physical server, manages, and allocates the physical resources.",
       "> The software that manages the basic functions of the physical hardware."
@@ -18762,15 +18762,15 @@ const allQuestions = [
     "answer": "Ansible:\n- uses SSH for remote device communication\n- uses YAML for fundamental configuration elements\n\nChef:\n- uses TCP port 10002 for configuration push jobs\n- uses Ruby for fundamental configuration elements\n\nPuppet:\n- fundamental configuration elements are stored in a manifest\n- uses TCP 8140 for communication",
     "explanation": "NO.717と同一問題です。\n・Ansible：エージェントレスで「SSH」を利用し、人間が読みやすい「YAML」形式でプレイブックを記述します。\n・Chef：クライアント/サーバー型で、「Ruby」言語ベースのレシピを使用し、プッシュジョブに「TCP 10002」等を利用します。\n・Puppet：クライアント/サーバー型で、独自言語で記述された「マニフェスト（manifest）」ファイルを使用し、エージェントとマスター間の通信に「TCP 8140」を使用します。",
     "dndTargets": [
+      "fundamental configuration elements are stored in a manifest",
+      "uses YAML for fundamental configuration elements",
+      "",
       "uses TCP 8140 for communication",
       "uses TCP port 10002 for configuration push jobs",
       "",
-      "uses SSH for remote device communication",
       "",
-      "",
-      "fundamental configuration elements are stored in a manifest",
-      "uses YAML for fundamental configuration elements",
-      "uses Ruby for fundamental configuration elements"
+      "uses Ruby for fundamental configuration elements",
+      "uses SSH for remote device communication"
     ],
     "dndPairs": {
       "Ansible": "",
@@ -18859,13 +18859,13 @@ const allQuestions = [
     "answer": "Split-MAC:\n- Work is divided between the access point and the controller.\n- Supports per device configuration and management. (※公式画像に基づく)\n- Uses the CAPWAP tunneling protocol.\n\nAutonomous:\n- The access points transmit beacon frames. (※実はSplit-MACでもAPが送信しますが公式画像に依存)\n- Appropriate for a small-business environment.",
     "explanation": "※試験問題の解答画像に依存したマッピングです。本来、デバイスごとの個別管理（per device config）はAutonomousの特徴であり、ビーコン送信は両方のAPで行われます。しかしDumpsの解答ロジックでは以下のように分類されます。\n・Split-MAC（軽量AP）：APとWLCで機能を分割し、CAPWAPトンネルで通信します。WLCによる集中管理が行われます。\n・Autonomous（自律AP）：WLCを持たず単独で動作するため、コストを抑えたい小規模ビジネス（small-business）環境に適しています。",
     "dndTargets": [
-      "Uses the CAPWAP tunneling protocol.",
       "MAC:",
+      "Work is divided between the access point and the controller.",
+      "",
       "The access points transmit beacon frames. (※実はSplit-MACでもAPが送信しますが公式画像に依存)",
       "Supports per device configuration and management. (※公式画像に基づく)",
-      "Appropriate for a small-business environment.",
-      "Work is divided between the access point and the controller.",
-      ""
+      "Uses the CAPWAP tunneling protocol.",
+      "Appropriate for a small-business environment."
     ],
     "dndPairs": {
       "Split": "MAC:",
@@ -18914,10 +18914,10 @@ const allQuestions = [
     "answer": "access -> end user connectivity\ndistribution -> provide routing, filtering, and WAN access\ncore -> switch packets as fast as possible\nperimeter edge -> (※公式画像ではここが空欄、または別の機能にマッピング)",
     "explanation": "Ciscoの階層型ネットワーク設計モデルの機能定義です。\n・アクセス層（Access）：PCやIP電話などのエンドユーザーデバイスをネットワークに物理的に接続します。\n・ディストリビューション層（Distribution）：アクセス層からのトラフィックを集約し、VLAN間ルーティング、ACLによるパケットフィルタリングなどのポリシー適用を行います。\n・コア層（Core）：キャンパスネットワークのバックボーンとして、パケットを「可能な限り高速に（as fast as possible）」スイッチング・転送することに特化します。",
     "dndTargets": [
-      "> (※公式画像ではここが空欄、または別の機能にマッピング)",
-      "> switch packets as fast as possible",
+      "> end user connectivity",
       "> provide routing, filtering, and WAN access",
-      "> end user connectivity"
+      "> (※公式画像ではここが空欄、または別の機能にマッピング)",
+      "> switch packets as fast as possible"
     ],
     "dndPairs": {
       "access": "> end user connectivity",
@@ -18938,10 +18938,10 @@ const allQuestions = [
     "answer": "configure the native VLAN with a nondefault VLAN ID -> 802.1q double-tagging VLAN-hopping attack\nconfigure 802.1x authentication -> MAC flooding attack (※ポートセキュリティが一般的だが画像に依存)\nconfigure DHCP snooping -> man-in-the-middle spoofing attack (※ARP spoofingを防ぐDAIの前提となる機能)\ndisable DTP -> switch-spoofing VLAN-hopping attack",
     "explanation": "レイヤ2セキュリティの緩和策です。\n・ネイティブVLANを未使用のIDに変更する：タグの二重付与を利用したVLANホッピング（ダブルタギング）攻撃を防ぎます。\n・DTPを無効にする（switchport nonegotiate）：攻撃者がスイッチになりすましてトランクリンクを形成するスイッチスプーフィング（VLANホッピング）攻撃を防ぎます。\n・DHCPスヌーピング：不正なDHCPサーバーによるMiTM攻撃を防ぐだけでなく、DAIと連携してARPスプーフィング攻撃を緩和する基盤となります。",
     "dndTargets": [
-      "> MAC flooding attack (※ポートセキュリティが一般的だが画像に依存)",
-      "> switch-spoofing VLAN-hopping attack",
       "> man-in-the-middle spoofing attack (※ARP spoofingを防ぐDAIの前提となる機能)",
-      "> 802.1q double-tagging VLAN-hopping attack"
+      "> 802.1q double-tagging VLAN-hopping attack",
+      "> switch-spoofing VLAN-hopping attack",
+      "> MAC flooding attack (※ポートセキュリティが一般的だが画像に依存)"
     ],
     "dndPairs": {
       "configure the native VLAN with a nondefault VLAN ID": "> 802.1q double-tagging VLAN-hopping attack",
@@ -19908,29 +19908,6 @@ function App() {
               <span>⬇️</span>
             </button>
           </div>
-
-          {/* 単独HTMLエクスポート機能エリア */}
-          <div className="w-full max-w-4xl mt-12 mb-8 bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8 border border-slate-200 dark:border-slate-700">
-            <h3 className="text-xl font-bold mb-3 flex items-center gap-2 text-slate-800 dark:text-slate-100">
-              <span>📦</span>
-              単独アプリとしてエクスポート
-            </h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-6 text-sm md:text-base">
-              以下のHTMLコードをコピーし、<code>.html</code> 形式のファイル（例: <code>quiz.html</code>）として保存すると、オフライン環境など、どこでも単独で動作するクイズアプリとして利用可能です。
-            </p>
-            <div className="relative">
-              <textarea
-                readOnly
-                value={generateExportHTML()}
-                className="w-full h-64 p-4 font-mono text-xs md:text-sm bg-slate-50 dark:bg-slate-900/50 text-slate-800 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
-              />
-              <button
-                onClick={handleCopyExportHTML}
-                className="absolute top-4 right-4 px-4 py-2 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors shadow-md flex items-center gap-2"
-              >
-                コードをコピー
-              </button>
-            </div>
           </div>
         </div>
       </div>
